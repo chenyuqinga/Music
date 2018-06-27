@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFFFFF</color><!-- 白色 -->
+    <color name="transparent">#00000000</color>
+    <!-- Music progressBar -->
+    <color name="music_progress_start">#33FFFFFF</color>
+    <color name="music_progress_end">#FFFFFFFF</color>
+    <color name="music_progress_background">#CCFFFFFF</color>
+    <color name="music_album">#E1C79B</color>
+    <color name="search_history_hint_color">#B3FFFFFF</color>
+    <color name="recipes_category_selected">#E1C79B</color>
+    <color name="recipes_category_unselected">#80FFFFFF</color>
+    <color name="device_control_default_color">#99ffffff</color>
+
+    <color name="tab_bar_time_color">#4dffffff</color>
+    <color name="cursor_color">#c197b6</color>
+
+    <color name="wheel_view_out_color">#4CFFFFFF</color>
+    <color name="wheel_view_divider_color">#4Ce1c79b</color>
+    <color name="white_half">#80FFFFFF</color>
+
+    <color name="dock_transparent">#b3000000</color>
+    <color name="transprant">#00000000</color>><!-- 透明色 -->
+</resources>

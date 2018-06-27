@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/current_activity_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="70px"
+            android:layout_marginLeft="25px"
+            android:layout_marginRight="25px"
+            android:layout_marginTop="77px"
+            android:background="@mipmap/bg_music_searchbar">
+
+            <ImageView
+                android:id="@+id/img_search_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="25px"
+                android:src="@mipmap/ic_search_gold" />
+
+            <EditText
+                android:id="@+id/ed_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="84px"
+                android:layout_marginRight="60px"
+                android:background="@null"
+                android:hint="@string/music_search_hint"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
+                android:textSize="30px"
+                android:textColor="@color/search_history_hint_color"
+                android:textColorHint="@color/search_history_hint_color"
+                android:textCursorDrawable="@drawable/color_cursor" />
+
+            <ImageView
+                android:id="@+id/img_cancel_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="20px"
+                android:src="@mipmap/btn_music_cancel" />
+            <com.fotile.c2i.activity.music.customview.RotationLoadingView
+                android:id="@+id/rotation_search_music_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="20px"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/lLayout_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25px"
+            android:layout_marginTop="50px"
+            android:orientation="vertical">
+
+            <com.fotile.c2i.activity.music.view.ThinBoldTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/music_search_history"
+                android:textColor="@color/search_history_hint_color"
+                android:textSize="30px" />
+
+            <!--  添加Button后自动换行 -->
+            <com.fotile.c2i.activity.music.customview.AutoLinefeedLayout
+                android:id="@+id/history_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22px"/>
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25px"
+            android:layout_marginRight="25px"
+            android:layout_marginTop="85px" />
+
+        <com.fotile.c2i.activity.music.view.ThinBoldTextView
+            android:id="@+id/tv_music_search_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="399px"
+            android:layout_marginTop="200px"
+            android:alpha="0.6"
+            android:text="@string/str_search_music_empty"
+            android:textColor="@color/white"
+            android:textSize="36px"
+            android:visibility="gone" />
+    </LinearLayout>
+</RelativeLayout>

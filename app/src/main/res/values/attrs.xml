@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--加载旋转图片-->
+    <declare-styleable name="rotation_loading">
+        <!--加载图片资源-->
+        <attr name="icon_drawable" format="reference"/>
+    </declare-styleable>
+
+</resources>

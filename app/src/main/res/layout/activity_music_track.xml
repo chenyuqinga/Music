@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/lLayout_music_track_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.fotile.c2i.activity.music.view.ThinBoldTextView
+            android:id="@+id/tv_category_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="92px"
+            android:textColor="@color/music_album"
+            android:textSize="24px"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_track"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15px"
+            android:layout_marginRight="15px"
+            android:layout_marginTop="75px"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lLayout_music_track_tip_area"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <com.fotile.c2i.activity.music.customview.RotationLoadingView
+                android:id="@+id/img_music_track_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon_drawable="@mipmap/ic_white_loading" />
+
+            <com.fotile.c2i.activity.music.view.ThinBoldTextView
+                android:id="@+id/tv_music_track_tip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginLeft="20px"
+                android:textSize="48px" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_music_track_connect_network"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30px"
+            android:background="@drawable/bg_finish_dialog_btn"
+            android:padding="25px"
+            android:text="@string/str_connect_network"
+            android:textColor="@color/white"
+            android:textSize="30px" />
+
+        <TextView
+            android:id="@+id/tv_music_track_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30px"
+            android:background="@drawable/bg_finish_dialog_btn"
+            android:padding="25px"
+            android:text="@string/str_network_disabled"
+            android:textColor="@color/white"
+            android:textSize="30px" />
+    </LinearLayout>
+
+</RelativeLayout>

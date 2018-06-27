@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@mipmap/bg_main_activity">
+
+    <com.fotile.c2i.activity.music.view.ThinBoldTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="48px"
+        android:layout_marginBottom="60px"
+        android:text="@string/str_network_unavailable_tip"/>
+
+    <com.fotile.c2i.activity.music.view.ThinBoldTextView
+        android:id="@+id/tv_window_connect_network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="25px"
+        android:textColor="@color/white"
+        android:textSize="30px"
+        android:text="@string/str_connect_network"
+        android:background="@drawable/bg_finish_dialog_btn"/>
+
+</LinearLayout>
