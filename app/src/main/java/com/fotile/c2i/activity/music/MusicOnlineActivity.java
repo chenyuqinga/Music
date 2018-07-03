@@ -230,6 +230,7 @@ public class MusicOnlineActivity extends BaseMusicActivity implements View.OnCli
             case MotionEvent.ACTION_CANCEL:
                 viewPagerMusicContent.requestDisallowInterceptTouchEvent(false);
                 break;
+
         }
         return super.onTouchEvent(event);
     }

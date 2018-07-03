@@ -38,6 +38,8 @@ MusicAlbumFragment extends BaseFragment implements FavoriteItemClickListener.OnI
 
     /**
      * 传值专辑名称的key
+     *
+     *
      */
     public static final String TITLE = "title";
 

@@ -1,29 +1,12 @@
 package com.fotile.c2i.activity.music;
 
 import android.app.Activity;
-import android.app.Service;
-import android.bluetooth.BluetoothAdapter;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.PixelFormat;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,8 +21,6 @@ import com.ximalaya.ting.android.opensdk.model.track.Track;
 import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
 import com.ximalaya.ting.android.opensdk.player.service.XmPlayerException;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.io.FileWriter;
 
@@ -53,8 +34,7 @@ import butterknife.BindView;
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
-    private WindowManager windowManager;
-    private WindowManager.LayoutParams layoutParams;
+
     /***************************************Home**************************************/
     private static final String TAG = "MainActivity";
     /**
@@ -98,6 +78,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         initView();
         initXm();
+        //电源键返回键
         cmdFileWriter("/proc/power_key", "158");
     }
 

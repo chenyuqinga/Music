@@ -44,6 +44,7 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
 
     /**
      * 缓存最大的搜索历史关键词数量
+     *
      */
     private static final int MAX_QUERY_KEY_STRING_COUNT = 5;
 

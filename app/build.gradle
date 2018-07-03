@@ -1,13 +1,14 @@
 apply plugin: 'com.android.application'
 //apply plugin: 'android-apt'
 android {
-    compileSdkVersion 26
+    compileSdkVersion 25
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.fotile.c2i.activity.music"
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion 17
+        targetSdkVersion 25
+        versionCode 139
+        versionName "C2CH-SA139"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -23,7 +24,7 @@ android {
 
     dependencies {
         implementation fileTree(dir: 'libs', include: ['*.jar'])
-        implementation 'com.android.support:appcompat-v7:26.1.0'
+        compile 'com.android.support:appcompat-v7:25.3.0'
         testImplementation 'junit:junit:4.12'
         androidTestImplementation 'com.android.support.test:runner:1.0.2'
         androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -47,6 +48,7 @@ android {
         compile 'jp.wasabeef:glide-transformations:2.0.1'
         //gson
         compile 'com.google.code.gson:gson:2.6.2'
+
     }
     sourceSets {
         main {
