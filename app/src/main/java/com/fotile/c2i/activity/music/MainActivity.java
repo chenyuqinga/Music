@@ -5,13 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fotile.c2i.activity.music.base.BaseActivity;
-import com.fotile.c2i.activity.music.base.BaseApplication;
 import com.fotile.c2i.activity.music.util.AppManagerUtil;
 
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
@@ -198,11 +196,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         //播放开始
         @Override
         public void onPlayStart() {
-            //进入屏保后,停止播放
-            if (((BaseApplication) getApplication()).isCanPlayMusicScreen() ){
-                xmPlayerManager.stop();
-                ((BaseApplication) getApplication()).setCanPlayMusicScreen(false);
-            }
+
             imgBtnHomeMusic.setImageResource(R.mipmap.btn_home_music_pause);
 
 

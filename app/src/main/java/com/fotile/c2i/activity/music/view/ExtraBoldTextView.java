@@ -25,5 +25,4 @@ public class ExtraBoldTextView extends AppCompatTextView {
         super(context, attrs, defStyleAttr);
     }
 
-
 }
