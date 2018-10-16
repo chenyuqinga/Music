@@ -50,54 +50,38 @@ public class MusicOnlineActivity extends BaseMusicActivity implements View.OnCli
     /**
      * 专辑分类tab按键
      */
-    @BindView(R.id.tabs_category)
     TabLayout tabLayoutCategory;
-
     /**
      * 专辑的viewpager
      */
-    @BindView(R.id.viewPager_music_content)
     ViewPager viewPagerMusicContent;
-
     /**
      * 显示音乐专辑区域
      */
-    @BindView(R.id.current_activity_content)
     LinearLayout currentActivityContent;
-
     /**
      * 搜索img
      */
-    @BindView(R.id.img_search)
     ImageView imgSearch;
-
     /**
      * 提示区域
      */
-    @BindView(R.id.lLayout_music_tip_area)
     LinearLayout lLayoutTipArea;
     /**
      * 加载中的提示图片
      */
-    @BindView(R.id.img_music_loading)
     RotationLoadingView imgLoading;
-
-
     /**
      * 提示语信息
      */
-    @BindView(R.id.tv_music_tip)
     TextView tvTip;
-
     /**
      * 请求错误提示信息
      */
-    @BindView(R.id.tv_music_request)
     TextView tvRequestMusic;
     /**
      * 连接网络按钮
      */
-    @BindView(R.id.tv_music_connect_network)
     TextView btnConnectNetwork;
 
     /**
@@ -145,7 +129,15 @@ public class MusicOnlineActivity extends BaseMusicActivity implements View.OnCli
 
 
         super.onCreate(savedInstanceState);
-
+        tabLayoutCategory = (TabLayout) findViewById(R.id.tabs_category);
+        viewPagerMusicContent = (ViewPager) findViewById(R.id.viewPager_music_content);
+        currentActivityContent = (LinearLayout) findViewById(R.id.current_activity_content);
+        imgSearch = (ImageView) findViewById(R.id.img_search);
+        lLayoutTipArea = (LinearLayout) findViewById(R.id.lLayout_music_tip_area);
+        imgLoading = (RotationLoadingView) findViewById(R.id.img_music_loading);
+        tvTip = (TextView) findViewById(R.id.tv_music_tip);
+        tvRequestMusic = (TextView) findViewById(R.id.tv_music_request);
+        btnConnectNetwork = (TextView) findViewById(R.id.tv_music_connect_network);
         initView();
         initData();
 
@@ -197,21 +189,16 @@ public class MusicOnlineActivity extends BaseMusicActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.img_search:
-                Intent musicIntent = new Intent(this, MusicSearchActivity.class);
-                launchActivity(musicIntent);
-                break;
-            case R.id.tv_music_connect_network:
+        int id = v.getId();
+        if (id == R.id.img_search) {
+            Intent musicIntent = new Intent(this, MusicSearchActivity.class);
+        } else if (id == R.id.tv_music_connect_network) {
               /*  Intent intent = new Intent(this, SettingActivity.class);
                 startActivity(intent);*/
-                break;
-            case R.id.tv_music_request:
-                musicOnlinePresenter.getMetadataList();
-                updateTip(true);
-                break;
+        } else if (id == R.id.tv_music_request) {
+            musicOnlinePresenter.getMetadataList();
+            updateTip(true);
         }
-
     }
 
     @Override
@@ -272,7 +259,7 @@ public class MusicOnlineActivity extends BaseMusicActivity implements View.OnCli
         for (int i = 0; i < attributesList.size(); i++) {
             tabLayoutCategory.addTab(tabLayoutCategory.newTab().setText(attributesList.get(i).getDisplayName()));
             String metadataAttributes = attributesList.get(i).getAttrKey() + ":" + attributesList.get(i).getAttrValue();
-            MusicAlbumFragment musicAlbumFragment = new MusicAlbumFragment(metadataAttributes);
+            MusicAlbumFragment musicAlbumFragment = MusicAlbumFragment.newInstance(metadataAttributes);
             fragments.add(musicAlbumFragment);
         }
 

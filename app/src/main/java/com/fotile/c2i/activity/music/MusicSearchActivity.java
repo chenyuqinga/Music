@@ -57,48 +57,34 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
     /**
      * 搜索editText
      */
-    @BindView(R.id.ed_search)
     EditText edSearch;
-
     /**
      * 搜索显示GridView
      */
-    @BindView(R.id.recyclerView_search)
     RecyclerView recyclerViewMusicSearch;
-
     /**
      * 搜索图标
      */
-    @BindView(R.id.img_search_icon)
     ImageView imgSearchIcon;
-
     /**
      * 清除图标
      */
-    @BindView(R.id.img_cancel_icon)
     ImageView imgCancelIcon;
-
     /**
      * 历史记录
      */
-    @BindView(R.id.history_search)
     AutoLinefeedLayout autoLinefeedLayout;
-
     /**
      * 显示历史记录的LinearLayout
      */
-    @BindView(R.id.lLayout_history)
     LinearLayout lLayoutHistory;
     /**
      * 搜索菜谱结果为空的提示
      */
-    @BindView(R.id.tv_music_search_empty)
     TextView tvSearchEmptyTip;
-
     /**
      * 搜索结果加载中的图标
      */
-    @BindView(R.id.rotation_search_music_loading)
     RotationLoadingView rotationSearchLoading;
 
     private int pageId = 1;
@@ -120,6 +106,14 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
+        edSearch = (EditText) findViewById(R.id.ed_search);
+        recyclerViewMusicSearch = (RecyclerView) findViewById(R.id.recyclerView_search);
+        imgSearchIcon = (ImageView) findViewById(R.id.img_search_icon);
+        imgCancelIcon = (ImageView) findViewById(R.id.img_cancel_icon);
+        autoLinefeedLayout = (AutoLinefeedLayout) findViewById(R.id.history_search);
+        lLayoutHistory = (LinearLayout) findViewById(R.id.lLayout_history);
+        tvSearchEmptyTip = (TextView) findViewById(R.id.tv_music_search_empty);
+        rotationSearchLoading = (RotationLoadingView) findViewById(R.id.rotation_search_music_loading);
         initView();
         initData();
     }

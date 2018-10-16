@@ -48,45 +48,37 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
     /**
      * 专辑名称
      */
-    @BindView(R.id.tv_category_title)
     TextView tvCategoryTitle;
 
     /**
      * 提示区域
      */
-    @BindView(R.id.lLayout_music_track_content)
     LinearLayout lLayoutContentArea;
     /**
      * 提示区域
      */
-    @BindView(R.id.lLayout_music_track_tip_area)
     LinearLayout lLayoutTipArea;
     /**
      * 加载中的提示图片
      */
-    @BindView(R.id.img_music_track_loading)
     RotationLoadingView imgLoading;
 
     /**
      * 提示语信息
      */
-    @BindView(R.id.tv_music_track_tip)
     TextView tvTip;
 
     /**
      * 请求错误提示信息
      */
-    @BindView(R.id.tv_music_track_request)
     TextView tvRequestMusic;
     /**
      * 连接网络按钮
      */
-    @BindView(R.id.tv_music_track_connect_network)
     TextView btnConnectNetwork;
     /**
      * 专辑下的音乐列表
      */
-    @BindView(R.id.recyclerView_track)
     RecyclerView recyclerViewMusicTrack;
 
     private int pageId = 1;
@@ -126,7 +118,14 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        tvCategoryTitle=(TextView)findViewById(R.id.tv_category_title);
+        lLayoutContentArea=(LinearLayout)findViewById(R.id.lLayout_music_track_content);
+        lLayoutTipArea=(LinearLayout)findViewById(R.id.lLayout_music_track_tip_area) ;
+        imgLoading=(RotationLoadingView)findViewById(R.id.img_music_track_loading) ;
+        tvTip=(TextView)findViewById(R.id.tv_music_track_tip);
+        tvRequestMusic=(TextView)findViewById(R.id.tv_music_track_request);
+        btnConnectNetwork=(TextView)findViewById(R.id.tv_music_track_connect_network);
+        recyclerViewMusicTrack= (RecyclerView)findViewById(R.id.recyclerView_track);
         initView();
         initData();
     }
@@ -165,15 +164,14 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.tv_music_track_connect_network:
-//                Intent intent = new Intent(this, SettingActivity.class);
-//                startActivity(intent);
-                break;
-            case R.id.tv_music_track_request:
-                musicTrackPresenter.getDataTrack(albumId, pageId);
-                updateTip(true);
-                break;
+        int id = v.getId();
+        if (id == R.id.tv_music_track_connect_network)
+        //                Intent intent = new Intent(this, SettingActivity.class);
+        //                startActivity(intent);
+        {
+        } else if (id == R.id.tv_music_track_request) {
+            musicTrackPresenter.getDataTrack(albumId, pageId);
+            updateTip(true);
         }
     }
 

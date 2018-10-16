@@ -39,49 +39,47 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
      * 喜马拉雅接口签名
      */
     public static final String appSecret = "7569aa71f10d4272fb2b40a0a1587200";
-
-    @BindView(R.id.rLayout_home_music)
-    RelativeLayout rLayoutM;
-
     /**
      * 主界面音乐名称
      */
-    @BindView(R.id.tv_home_music_name)
     TextView tvHomeMusicName;
     /**
      * 主界面音乐暂停按钮
      */
-    @BindView(R.id.imgbtn_home_music)
     ImageView imgBtnHomeMusic;
     /**
      * 主界面音乐列表按钮
      */
-    @BindView(R.id.img_home_music_list)
     ImageView imgHomeMusicList;
     /**
      * music在线音乐标题
      */
-    @BindView(R.id.tv_home_music_title)
     TextView tvHomeMusicTitle;
-
+    /**
+     * music布局
+     */
+    RelativeLayout rLayoutM;
     /**
      * 喜马拉雅控件
      */
     private XmPlayerManager xmPlayerManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //放在这里是有原因的，不要放在super.onCreate后面
         initApp();
         super.onCreate(savedInstanceState);
+        rLayoutM=(RelativeLayout)findViewById(R.id.rLayout_home_music);
+        tvHomeMusicName=(TextView)findViewById(R.id.tv_home_music_name);
+        imgHomeMusicList=(ImageView)findViewById(R.id.img_home_music_list);
+        tvHomeMusicTitle=(TextView)findViewById(R.id.tv_home_music_title);
         initView();
         initXm();
         //电源键返回键
         cmdFileWriter("/proc/power_key", "158");
+
     }
-
-
-
 
 
     @Override
@@ -109,34 +107,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            //在线音乐
-            case R.id.rLayout_home_music:
-
-                    if (imgBtnHomeMusic.getVisibility() == View.VISIBLE) {
-                        startMusicPlayActivity();
-                    } else {
-                        launchActivity(MusicOnlineActivity.class);
-                    }
-
-                break;
+        int id=v.getId() ;
 
             //在线音乐
-            case R.id.imgbtn_home_music:
-                if (xmPlayerManager.isPlaying()) {
-                    xmPlayerManager.pause();
-                    imgBtnHomeMusic.setImageResource(R.mipmap.btn_home_music_play);
-                } else {
-                    xmPlayerManager.play();
-                    imgBtnHomeMusic.setImageResource(R.mipmap.btn_home_music_pause);
-                }
-                break;
-            //在线音乐
-            case R.id.img_home_music_list:
-                startMusicTrackActivity();
-                break;
+           if(id==R.id.rLayout_home_music) {
+               if (imgBtnHomeMusic.getVisibility() == View.VISIBLE) {
+                   startMusicPlayActivity();
+               } else {
+                   launchActivity(MusicOnlineActivity.class);
+               }
 
-        }
+           }
+
+            //在线音乐
+           else if(id== R.id.imgbtn_home_music) {
+               if (xmPlayerManager.isPlaying()) {
+                   xmPlayerManager.pause();
+                   imgBtnHomeMusic.setImageResource(R.mipmap.btn_home_music_play);
+               } else {
+                   xmPlayerManager.play();
+                   imgBtnHomeMusic.setImageResource(R.mipmap.btn_home_music_pause);
+               }
+           }
+            //在线音乐
+           else if(id==R.id.img_home_music_list) {
+               startMusicTrackActivity();
+           }
+
+
     }
 
     /**

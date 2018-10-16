@@ -1,9 +1,10 @@
-package com.fotile.c2i.activity.music;
+﻿package com.fotile.c2i.activity.music;
 
 
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
@@ -50,13 +51,11 @@ MusicAlbumFragment extends BaseFragment implements FavoriteItemClickListener.OnI
     /**
      * 音乐专辑recyclerview
      */
-    @BindView(R.id.recyclerView_music_album)
     RecyclerView recyclerViewMusicAlbum;
 
     /**
      * 音乐请求回来失败
      */
-    @BindView(R.id.tv_tip_music_request)
     TextView tvTipError;
 
     /**
@@ -81,16 +80,38 @@ MusicAlbumFragment extends BaseFragment implements FavoriteItemClickListener.OnI
 
     }
 
-    public MusicAlbumFragment(String metadataAttributes) {
-        this.metadataAttributes = metadataAttributes;
+//    public MusicAlbumFragment(int pid, String message) {
+//        this.metadataAttributes = metadataAttributes;
+//
+//    }
 
+    public static final MusicAlbumFragment newInstance(String metadataAttributes) {
+        MusicAlbumFragment fragment = new MusicAlbumFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("metadataAttributes", metadataAttributes);
+        fragment.setArguments(bundle);
+        return fragment;
     }
+
+@Override
+
+public void onCreate(@Nullable Bundle savedInstanceState) {
+
+    super.onCreate(savedInstanceState);
+
+
+    this.metadataAttributes = getArguments().getString("metadataAttributes");
+
+}
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         pageId = 1;
+        View rootview=inflater.inflate(R.layout.fragment_music_album,container,false);
+        recyclerViewMusicAlbum = (RecyclerView)rootview.findViewById(R.id.recyclerView_music_album);
+        tvTipError=(TextView)rootview.findViewById(R.id.tv_tip_music_request);
         initView();
         setValues();
         initData();

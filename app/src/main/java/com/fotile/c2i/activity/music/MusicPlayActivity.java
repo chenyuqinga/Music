@@ -49,59 +49,50 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
     /**
      * 播放时音乐名称
      */
-    @BindView(R.id.tv_play_name)
     TextView tvPlayName;
 
-    @BindView(R.id.tv_play_author)
+
     TextView tvPlayAuthor;
 
     /**
      * * 播放背景
      */
-    @BindView(R.id.img_play_background)
     ImageView imgPlayBackground;
 
     /**
      * 播放
      */
-    @BindView(R.id.imgBtn_play)
     ImageView imgBtnPlay;
 
     /**
      * 下一首
      */
-    @BindView(R.id.imgBtn_next)
     ImageView imgBtnNext;
 
     /**
      * 上一首
      */
-    @BindView(R.id.imgBtn_pre)
     ImageView imgBtnPre;
 
     /**
      * 播放进度时长
      */
-    @BindView(R.id.tv_playTime)
     TextView tvPlayTime;
 
 
     /**
      * 播放进度SeekBar
      */
-    @BindView(R.id.sBar_progress)
     SeekBar seekBarProgress;
 
     /**
      * 音量seekbar
      */
-    @BindView(R.id.sBar_sound)
     SeekBar seekBarSound;
 
     /**
      * 播放时音乐图像Img
      */
-    @BindView(R.id.cImg_play_music)
     ImageView imgPlayMusic;
 
     /**
@@ -141,10 +132,21 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
     private NetworkPopupWindow networkTipWindow;
     private static long last_time = 0;
     private static final int ONE_HOUR = 60 * 60 * 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
+        tvPlayName = (TextView) findViewById(R.id.tv_play_name);
+        tvPlayAuthor = (TextView) findViewById(R.id.tv_play_author);
+        imgPlayBackground = (ImageView) findViewById(R.id.img_play_background);
+        imgBtnPlay = (ImageView) findViewById(R.id.imgBtn_play);
+        imgBtnNext = (ImageView) findViewById(R.id.imgBtn_play);
+        imgBtnPre = (ImageView) findViewById(R.id.imgBtn_pre);
+        tvPlayTime = (TextView) findViewById(R.id.tv_playTime);
+        seekBarProgress = (SeekBar) findViewById(R.id.sBar_progress);
+        seekBarSound = (SeekBar) findViewById(R.id.sBar_sound);
+        imgPlayMusic = (ImageView) findViewById(R.id.cImg_play_music);
         initView();
         initXm();
         initAnimation();
@@ -224,35 +226,33 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            //音乐播放与暂停
-            case R.id.imgBtn_play:
-                if (xmPlayerManager.isPlaying()) {
-                    xmPlayerManager.pause();
-                    imgPlayMusic.clearAnimation();
-                } else {
-                    xmPlayerManager.play();
-                    imgPlayMusic.startAnimation(animationImage);
-                }
-                break;
-            //下一首
-            case R.id.imgBtn_next:
-                if (fastclick()) {
-                    xmPlayerManager.playNext();
-                }
-                break;
-            //上一首
-            case R.id.imgBtn_pre:
-                if (fastclick()) {
-                    xmPlayerManager.playPre();
-                    xmCommonRequest.setDefaultPagesize(100);
-                }
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.imgBtn_play)
+        //音乐播放与暂停
+        {
+            if (xmPlayerManager.isPlaying()) {
+                xmPlayerManager.pause();
+                imgPlayMusic.clearAnimation();
+            } else {
+                xmPlayerManager.play();
+                imgPlayMusic.startAnimation(animationImage);
+            }
+        } else if (id == R.id.imgBtn_next)
+        //下一首
+        {
+            if (fastclick()) {
+                xmPlayerManager.playNext();
+            }
         }
-//        ScreenTool.getInstance().addResetData("音乐播放界面点击");
+        //上一首
+        else if (id == R.id.imgBtn_pre)
+            if (fastclick()) {
+                xmPlayerManager.playPre();
+                xmCommonRequest.setDefaultPagesize(100);
+            }
     }
+//        ScreenTool.getInstance().addResetData("音乐播放界面点击");
+
 
     @Override
     protected void onStart() {
