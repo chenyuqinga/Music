@@ -30,7 +30,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
+
 
 /**
  * 文件名称：MusicOnlineActivity

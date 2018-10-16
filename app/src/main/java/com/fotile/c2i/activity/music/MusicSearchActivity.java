@@ -29,7 +29,7 @@ import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
+
 
 /**
  * 文件名称：MusicSearchActivity

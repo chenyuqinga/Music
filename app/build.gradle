@@ -7,7 +7,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion '26.0.2'
     defaultConfig {
-        //applicationId "com.fotile.c2i.activity.music"
+//        applicationId "com.fotile.c2i.activity.music"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 139
@@ -38,9 +38,6 @@ android {
         compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
         //rxjava
         compile 'io.reactivex:rxandroid:1.2.0'
-        //butterknife
-        compile 'com.jakewharton:butterknife:8.4.0'
-        annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
         //EventBus
         compile 'org.greenrobot:eventbus:3.0.0'
         //tablayout

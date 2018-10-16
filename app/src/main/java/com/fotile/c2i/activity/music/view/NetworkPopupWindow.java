@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import com.fotile.c2i.activity.music.R;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 文件名称：NetworkPopupWindow
@@ -28,8 +26,8 @@ public class NetworkPopupWindow extends PopupWindow implements View.OnClickListe
     /**
      * 去连接网络按钮
      */
-    @BindView(R.id.tv_window_connect_network)
     TextView tvConnectNetwork;
+
 
     private View view;
     private Context context;
@@ -39,8 +37,9 @@ public class NetworkPopupWindow extends PopupWindow implements View.OnClickListe
         this.context = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.layout_network_popup_window,null);
+        tvConnectNetwork=(TextView)view.findViewById(R.id.tv_window_connect_network);
         setContentView(view);
-        ButterKnife.bind(this, view);
+
         initView();
 
     }

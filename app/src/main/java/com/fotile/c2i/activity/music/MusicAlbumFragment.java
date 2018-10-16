@@ -1,10 +1,9 @@
-﻿package com.fotile.c2i.activity.music;
+package com.fotile.c2i.activity.music;
 
 
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
@@ -24,7 +23,6 @@ import com.ximalaya.ting.android.opensdk.model.metadata.Attributes;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import butterknife.BindView;
 
 /**
  * 文件名称：MusicAlbumFragment

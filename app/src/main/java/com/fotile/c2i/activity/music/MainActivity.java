@@ -22,7 +22,7 @@ import com.ximalaya.ting.android.opensdk.player.service.XmPlayerException;
 
 import java.io.FileWriter;
 
-import butterknife.BindView;
+
 
 /**
  * 文件名称：MainActivity
@@ -74,6 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         tvHomeMusicName=(TextView)findViewById(R.id.tv_home_music_name);
         imgHomeMusicList=(ImageView)findViewById(R.id.img_home_music_list);
         tvHomeMusicTitle=(TextView)findViewById(R.id.tv_home_music_title);
+        imgBtnHomeMusic=(ImageView)findViewById(R.id.img_home_music);
         initView();
         initXm();
         //电源键返回键

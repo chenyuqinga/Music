@@ -30,7 +30,6 @@ import com.ximalaya.ting.android.opensdk.player.service.XmPlayerException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import butterknife.BindView;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 

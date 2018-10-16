@@ -25,7 +25,7 @@ import com.fotile.c2i.activity.music.presenter.MusicTrackPresenter;
 import com.ximalaya.ting.android.opensdk.model.track.TrackList;
 import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
 
-import butterknife.BindView;
+
 
 import static com.fotile.c2i.activity.music.MusicAlbumFragment.ALBUMID;
 import static com.fotile.c2i.activity.music.MusicAlbumFragment.TITLE;

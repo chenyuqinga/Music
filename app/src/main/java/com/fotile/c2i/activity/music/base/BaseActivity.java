@@ -15,8 +15,9 @@ import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
 import com.fotile.c2i.activity.music.MainActivity;
+import com.fotile.c2i.activity.music.R;
 import com.fotile.c2i.activity.music.util.AppManagerUtil;
-import butterknife.ButterKnife;
+
 
 
 /**
@@ -62,7 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        ButterKnife.bind(this);
+        setScreenMargin();
         AppManagerUtil.getInstance().addActivity(this);
 
 
@@ -160,4 +161,20 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * 设置屏幕边距缩进
+     */
+    private void setScreenMargin() {
+        rootView = (ViewGroup) findViewById(android.R.id.content);
+        //屏幕缩进距离
+        int screen_margin = (int) getResources().getDimension(R.dimen.screen_margin);
+        //顶部状态栏高度
+        int state_bar_height = (int) getResources().getDimension(R.dimen.state_bar_height);
+        //bottom栏高度，没有计算向上小箭头
+        int bottom_height = (int) getResources().getDimension(R.dimen.bottom_part_height);
+
+        int margin_top = screen_margin + state_bar_height;
+        int margin_bottom = screen_margin + bottom_height;
+        rootView.setPadding(screen_margin, margin_top, screen_margin, margin_bottom);
+    }
 }
