@@ -1,0 +1,14 @@
+<resources>
+
+    <!--上下左右往内缩进边距，和视源google输入法内缩边距一致-->
+    <dimen name="screen_margin">0px</dimen>
+    <!--状态栏高度-->
+    <dimen name="state_bar_height">60px</dimen>
+    <!--bottom栏高度，没有计算向上小箭头-->
+    <dimen name="bottom_part_height">80px</dimen>
+    <!--底栏高度，带箭头-->
+    <dimen name="bottom_full_height">109px</dimen>
+    <!--调节音量、亮度控件圆角-->
+    <dimen name="progress_view_corner">16px</dimen>
+
+</resources>
