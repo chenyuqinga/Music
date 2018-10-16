@@ -169,9 +169,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         //屏幕缩进距离
         int screen_margin = (int) getResources().getDimension(R.dimen.screen_margin);
         //顶部状态栏高度
-        int state_bar_height = (int) getResources().getDimension(R.dimen.state_bar_height);
+        int state_bar_height = (int)getResources().getDimension(R.dimen.state_bar_height);
         //bottom栏高度，没有计算向上小箭头
-        int bottom_height = (int) getResources().getDimension(R.dimen.bottom_part_height);
+        int bottom_height = (int)getResources().getDimension(R.dimen.bottom_part_height);
 
         int margin_top = screen_margin + state_bar_height;
         int margin_bottom = screen_margin + bottom_height;
