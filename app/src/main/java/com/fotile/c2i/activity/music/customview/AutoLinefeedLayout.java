@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fotile.c2i.activity.music.R;
+
 /**
  * 文件名称：AutoLinefeedLayout
  * 创建时间：2017/8/7
@@ -13,7 +15,6 @@ import android.view.ViewGroup;
  */
 
 public class AutoLinefeedLayout extends ViewGroup {
-
     public AutoLinefeedLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
@@ -47,8 +48,8 @@ public class AutoLinefeedLayout extends ViewGroup {
             if (child == null) {
                 continue;
             } else if (child.getVisibility() != GONE) {
-                final int childWidth = child.getMeasuredWidth();
-                final int childHeight = child.getMeasuredHeight();
+                final int childWidth = child.getMeasuredWidth()+10;
+                final int childHeight = child.getMeasuredHeight()+10;
 
                 if (availableLineWidth < childWidth) {
                     availableLineWidth = lineWidth;
@@ -59,7 +60,8 @@ public class AutoLinefeedLayout extends ViewGroup {
                 childTop = paddingTop;
                 setChildFrame(child, childLeft, childTop, childWidth,
                         childHeight);
-                childLeft += childWidth;
+                //子view水平间隔
+                childLeft += childWidth+10;
                 availableLineWidth = availableLineWidth - childWidth;
                 maxLineHeight = Math.max(maxLineHeight, childHeight);
             }
@@ -68,7 +70,8 @@ public class AutoLinefeedLayout extends ViewGroup {
 
     private void setChildFrame(View child, int left, int top, int width,
                                int height) {
-        child.layout(left, top, left + width, top + height);
+        child.layout(left+5, top+5, left + width-5, top + height-5);
+        child.setBackgroundResource(R.drawable.editext_round);
     }
 
     @Override
@@ -107,5 +110,6 @@ public class AutoLinefeedLayout extends ViewGroup {
         totalHeight = totalHeight + lineHeight;
         return totalHeight;
     }
+
 
 }

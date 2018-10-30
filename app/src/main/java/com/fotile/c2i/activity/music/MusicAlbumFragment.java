@@ -2,15 +2,21 @@ package com.fotile.c2i.activity.music;
 
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fotile.c2i.activity.music.adapter.MusicAlbumRecyclerAdapter;
@@ -30,15 +36,11 @@ import java.util.List;
  * 文件作者：zhangqiang
  * 功能描述：专辑的fragment
  */
-public class
-
-MusicAlbumFragment extends BaseFragment implements FavoriteItemClickListener.OnItemClickListener {
+public class MusicAlbumFragment extends BaseFragment implements FavoriteItemClickListener.OnItemClickListener {
 
 
     /**
      * 传值专辑名称的key
-     *
-     *
      */
     public static final String TITLE = "title";
 
@@ -49,13 +51,16 @@ MusicAlbumFragment extends BaseFragment implements FavoriteItemClickListener.OnI
     /**
      * 音乐专辑recyclerview
      */
+
     RecyclerView recyclerViewMusicAlbum;
 
     /**
      * 音乐请求回来失败
      */
     TextView tvTipError;
-
+    /*
+     */
+    ImageView musicCover;
     /**
      * 取不同元数据属性的attr_key和atrr_value组成任意个数的key-value键值
      */
@@ -78,38 +83,21 @@ MusicAlbumFragment extends BaseFragment implements FavoriteItemClickListener.OnI
 
     }
 
-//    public MusicAlbumFragment(int pid, String message) {
-//        this.metadataAttributes = metadataAttributes;
-//
-//    }
+    public MusicAlbumFragment(String metadataAttributes) {
+        this.metadataAttributes = metadataAttributes;
 
-    public static final MusicAlbumFragment newInstance(String metadataAttributes) {
-        MusicAlbumFragment fragment = new MusicAlbumFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("metadataAttributes", metadataAttributes);
-        fragment.setArguments(bundle);
-        return fragment;
     }
-
-@Override
-
-public void onCreate(@Nullable Bundle savedInstanceState) {
-
-    super.onCreate(savedInstanceState);
-
-
-    this.metadataAttributes = getArguments().getString("metadataAttributes");
-
-}
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         pageId = 1;
-        View rootview=inflater.inflate(R.layout.fragment_music_album,container,false);
-        recyclerViewMusicAlbum = (RecyclerView)rootview.findViewById(R.id.recyclerView_music_album);
-        tvTipError=(TextView)rootview.findViewById(R.id.tv_tip_music_request);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = inflater.inflate(R.layout.fragment_music_album,null);
+        recyclerViewMusicAlbum = (RecyclerView)view.findViewById(R.id.recyclerView_music_album);
+        tvTipError=(TextView)view.findViewById(R.id.tv_tip_music_request);
+        musicCover = (ImageView) view.findViewById(R.id.img_music);
         initView();
         setValues();
         initData();

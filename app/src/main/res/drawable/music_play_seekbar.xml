@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="#33FFFFFF" />
+            <solid android:color="#D8D8D8" />
         </shape>
     </item>
     <!-- 第二进度条 -->
@@ -10,7 +10,7 @@
    <!-- <item android:id="@android:id/secondaryProgress">
         <clip>
             <shape>
-                <solid android:color="#ccFFFFFF" />
+                <solid android:color="#C8AF70" />
             </shape>
         </clip>
     </item>
@@ -19,11 +19,8 @@
     <item android:id="@android:id/progress">
         <clip>
             <shape>
-                <gradient
-                    android:centerColor="#99FFFFFF"
-                    android:endColor="#ccffffff"
-                    android:startColor="#00ffffff"
-                    android:type="linear" />
+                    <solid android:color="#C8AF70"/>
+                    <corners android:radius="2px"/>
             </shape>
         </clip>
     </item>

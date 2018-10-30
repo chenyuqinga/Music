@@ -31,7 +31,7 @@ public class MusicSearchRecyclerAdapter extends RecyclerView.Adapter<MusicAlbumV
 
     @Override
     public MusicAlbumViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_music_album, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_music_search_album, parent, false);
         MusicAlbumViewHolder holder = new MusicAlbumViewHolder(view);
         return holder;
     }

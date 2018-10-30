@@ -2,28 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10px">
+    android:padding="10px"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/img_music"
-        android:layout_width="250px"
-        android:layout_height="250px"
-        android:scaleType="centerCrop" />
-
-    <com.fotile.c2i.activity.music.view.ThinBoldTextView
+        android:layout_width="360px"
+        android:layout_height="620px"
+        android:scaleType="centerCrop"
+      />
+      <com.fotile.c2i.activity.music.view.ThinBoldTextView
         android:id="@+id/tv_music_name"
-        android:layout_width="250px"
-        android:layout_height="wrap_content"
+        android:layout_width="360px"
+        android:layout_height="115px"
         android:textColor="@color/white"
-        android:layout_marginTop="20px"
-        android:textSize="30px" />
+        android:layout_marginTop="-110px"
+        android:textSize="36px"
+        android:background="#50000000"
+        android:gravity="center_horizontal"/>
 
-    <com.fotile.c2i.activity.music.view.ThinBoldTextView
+      <com.fotile.c2i.activity.music.view.ThinBoldTextView
         android:id="@+id/tv_music_author"
-        android:layout_width="250px"
+        android:layout_width="360px"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textSize="24px" />
-
 </LinearLayout>

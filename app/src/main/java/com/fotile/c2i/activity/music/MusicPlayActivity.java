@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -54,11 +55,6 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
     TextView tvPlayAuthor;
 
     /**
-     * * 播放背景
-     */
-    ImageView imgPlayBackground;
-
-    /**
      * 播放
      */
     ImageView imgBtnPlay;
@@ -74,20 +70,22 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
     ImageView imgBtnPre;
 
     /**
-     * 播放进度时长
+     * 音量调节
+     */
+    ImageView imgBtnSound;
+    /**
+     * 当前播放进度时长
      */
     TextView tvPlayTime;
-
-
+    /**
+     * 总共播放时长
+     */
+   TextView tvPlayTimeAll;
     /**
      * 播放进度SeekBar
      */
     SeekBar seekBarProgress;
 
-    /**
-     * 音量seekbar
-     */
-    SeekBar seekBarSound;
 
     /**
      * 播放时音乐图像Img
@@ -138,14 +136,14 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
         context = this;
         tvPlayName = (TextView) findViewById(R.id.tv_play_name);
         tvPlayAuthor = (TextView) findViewById(R.id.tv_play_author);
-        imgPlayBackground = (ImageView) findViewById(R.id.img_play_background);
         imgBtnPlay = (ImageView) findViewById(R.id.imgBtn_play);
-        imgBtnNext = (ImageView) findViewById(R.id.imgBtn_play);
+        imgBtnNext = (ImageView) findViewById(R.id.imgBtn_next);
         imgBtnPre = (ImageView) findViewById(R.id.imgBtn_pre);
         tvPlayTime = (TextView) findViewById(R.id.tv_playTime);
+        tvPlayTimeAll=(TextView)findViewById(R.id.tv_playTimeAll);
         seekBarProgress = (SeekBar) findViewById(R.id.sBar_progress);
-        seekBarSound = (SeekBar) findViewById(R.id.sBar_sound);
-        imgPlayMusic = (ImageView) findViewById(R.id.cImg_play_music);
+        imgPlayMusic = (ImageView) findViewById(R.id.img_play_music);
+        imgBtnSound=(ImageView) findViewById(R.id.imgBtn_Sound);
         initView();
         initXm();
         initAnimation();
@@ -210,14 +208,11 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
         imgBtnPlay.setOnClickListener(this);
         imgBtnNext.setOnClickListener(this);
         imgBtnPre.setOnClickListener(this);
-
+        imgBtnSound.setOnClickListener(this);
         seekBarProgress.setOnSeekBarChangeListener(new SeekBarChangeListener());
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        seekBarSound.setMax(maxVolume);
         int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        seekBarSound.setProgress(currentVolume);
-        seekBarSound.setOnSeekBarChangeListener(new SeekBarChangeSoundEvent());
         imgBtnPlay.setImageResource(R.mipmap.btn_music_play);
 
     }
@@ -236,7 +231,8 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
                 xmPlayerManager.play();
                 imgPlayMusic.startAnimation(animationImage);
             }
-        } else if (id == R.id.imgBtn_next)
+        }
+        else if (id == R.id.imgBtn_next)
         //下一首
         {
             if (fastclick()) {
@@ -245,14 +241,29 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
         }
         //上一首
         else if (id == R.id.imgBtn_pre)
-            if (fastclick()) {
+        {   if (fastclick()) {
                 xmPlayerManager.playPre();
-                xmCommonRequest.setDefaultPagesize(100);
+                xmCommonRequest.setDefaultPagesize(200);
+                LogUtil.LOGE("---111",111);
+            }}
+        //音量调节
+        else if(id == R.id.imgBtn_Sound) {
+                if (fastclick()) {
+                    LogUtil.LOGE("---222", 222);
+                    showSoundDialog();
+                }
             }
     }
 //        ScreenTool.getInstance().addResetData("音乐播放界面点击");
 
+    /**
+     * 显示音量调节界面
+     */
+private void showSoundDialog(){
+    Intent intent = new Intent(context, SoundVolumeDialogActivity.class);
+    startActivity(intent);
 
+}
     @Override
     protected void onStart() {
         super.onStart();
@@ -260,30 +271,6 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
             imgPlayMusic.startAnimation(animationImage);
         }
 
-    }
-
-
-    /**
-     * 实现监听声音SeekBar的类
-     */
-    private class SeekBarChangeSoundEvent implements SeekBar.OnSeekBarChangeListener {
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
-            int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-            seekBarSound.setProgress(currentVolume);
-
-        }
-
-        @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-
-        }
-
-        @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
-
-        }
     }
 
 
@@ -358,7 +345,8 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
                 }
                 tvPlayName.setText(title);
                //切换歌曲时，时间改问题，默认时间00
-                tvPlayTime.setText(formatMusicTime(0) + " / " + formatMusicTime(time*1000));
+                tvPlayTime.setText(formatMusicTime(0));
+                tvPlayTimeAll.setText(formatMusicTime(time*1000));
                 if (name != null) {
                     tvPlayAuthor.setText(name);
                 } else {
@@ -368,8 +356,8 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
                         bitmapTransform(new CropCircleTransformation(context)).
                         animate(animationImage).into(imgPlayMusic);
 
-                Glide.with(context).load(coverUrl).
-                        bitmapTransform(new BlurTransformation(context, 20)).into(imgPlayBackground);
+//                Glide.with(context).load(coverUrl).
+//                        bitmapTransform(new BlurTransformation(context, 20)).into(imgPlayBackground);
 
             }
             updateButtonStatus();
@@ -391,7 +379,7 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
         @Override
         public void onPlayStart() {
             LogUtil.LOGE(TAG, "onPlayStart");
-            imgBtnPlay.setImageResource(R.mipmap.btn_music_pause);
+            imgBtnPlay.setImageResource(R.mipmap.img_btn_pause);
             imgPlayMusic.startAnimation(animationImage);
             //音乐播放开始，重置屏保
 //            ScreenTool.getInstance().addResetData("音乐播放开始");
@@ -422,13 +410,10 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
             } else {
                 tvPlayAuthor.setText(getResources().getString(R.string.unknown_author));
             }
-            tvPlayTime.setText(formatMusicTime(currPos) + " / " + formatMusicTime(duration));
+            tvPlayTime.setText(formatMusicTime(currPos));
+            tvPlayTimeAll.setText(formatMusicTime(duration));
             Glide.with(context).load(coverUrl).bitmapTransform(new CropCircleTransformation(context)).into
                     (imgPlayMusic);
-            Glide.with(context).load(coverUrl).
-                    bitmapTransform(new BlurTransformation(context, 23)).into(imgPlayBackground);
-
-
             if (updateProgress && duration != 0) {
                 seekBarProgress.setProgress((int) (100 * currPos / (float) duration));
             }
@@ -461,8 +446,8 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
             LogUtil.LOGD(TAG, "onError " + exception.getMessage());
             imgBtnPlay.setImageResource(R.mipmap.btn_music_play);
             if (!isNetworkAvailable(context)) {
-                //TopSnackBar.make(context.getApplicationContext(), context.getString(R.string.str_network_interrupt)
-                // , TopSnackBar.LENGTH_LONG).show();
+//                TopSnackBar.make(context.getApplicationContext(), context.getString(R.string.str_network_interrupt)
+//                 , TopSnackBar.LENGTH_LONG).show();
                 if (null == networkTipWindow) {
                     networkTipWindow = new NetworkPopupWindow(context);
                     networkTipWindow.setWindowSize(screen_width - leftWidth, screen_height - bottomHeight);
@@ -481,7 +466,7 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
          */
         @Override
         public void onBufferProgress(int position) {
-            seekBarProgress.setSecondaryProgress(position);
+//            seekBarProgress.setSecondaryProgress(position);
         }
 
         /**
@@ -546,7 +531,7 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
 
     private void initMusicInfo() {
         xmPlayerManager.seekTo(xmPlayerManager.getPlayCurrPositon());
-        imgBtnPlay.setImageResource(xmPlayerManager.isPlaying() ? R.mipmap.btn_music_pause : R.mipmap.btn_music_play);
+        imgBtnPlay.setImageResource(xmPlayerManager.isPlaying() ? R.mipmap.img_btn_pause : R.mipmap.btn_music_play);
         PlayableModel model = xmPlayerManager.getCurrSound();
         if (model != null) {
             String title = null;
@@ -567,10 +552,6 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
             Glide.with(context).load(coverUrl).
                     bitmapTransform(new CropCircleTransformation(context)).
                     animate(animationImage).into(imgPlayMusic);
-
-            Glide.with(context).load(coverUrl).
-                    bitmapTransform(new BlurTransformation(context, 20)).into(imgPlayBackground);
-
         }
     }
 
@@ -580,7 +561,7 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
     private void updatePreButton() {
         if (xmPlayerManager.hasPreSound()) {
             imgBtnPre.setEnabled(true);
-            imgBtnPre.setImageResource(R.mipmap.btn_music_prev);
+            imgBtnPre.setImageResource(R.mipmap.img_btn_previous);
         } else {
             imgBtnPre.setEnabled(false);
             imgBtnPre.setImageResource(R.mipmap.btn_music_pre_grey);

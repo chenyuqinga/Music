@@ -9,7 +9,7 @@
     </style>
     <!-- Music中TabLayout自定义样式-->
     <style name="recipeTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textSize">24px</item>
+        <item name="android:textSize">26px</item>
         <item name="android:textColor">@color/recipes_category_unselected</item>
         <item name="android:gravity">center</item>
     </style>

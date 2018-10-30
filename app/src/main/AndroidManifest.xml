@@ -2,12 +2,13 @@
     package="com.fotile.c2i.activity.music">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <application>
-       <!--android:theme="@style/Theme.AppCompat">-->
+    <application
+        android:theme="@style/AppCustomTheme">
 
 
         <activity
@@ -27,7 +28,7 @@
         <activity android:name=".MusicSearchActivity"></activity>
         <activity android:name=".MusicTrackActivity"></activity>
         <activity android:name=".MusicPlayActivity"></activity>
-
+        <activity android:name=".SoundVolumeDialogActivity"></activity>
 
 
         <service

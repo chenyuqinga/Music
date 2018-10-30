@@ -10,5 +10,6 @@
     <dimen name="bottom_full_height">109px</dimen>
     <!--调节音量、亮度控件圆角-->
     <dimen name="progress_view_corner">16px</dimen>
-
-</resources>
+    <dimen name="tab_select">36px</dimen>
+    <dimen name="tab_unselect">26px</dimen>
+    </resources>

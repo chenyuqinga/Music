@@ -8,107 +8,101 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/img_play_background"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px"
-            android:layout_marginTop="30px"
-            android:scaleType="centerCrop"/>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px"
-            android:layout_marginTop="30px"
-            android:background="@drawable/bg_music_play"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingTop="100px">
-
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/cImg_play_music"
-                    android:layout_width="260px"
-                    android:layout_height="260px"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"/>
+                    android:id="@+id/img_play_music"
+                    android:layout_width="360px"
+                    android:layout_height="360px"
+                    android:layout_marginLeft="120px"
+                    android:layout_marginTop="80px" />
 
                 <ImageView
-                    android:layout_width="280px"
-                    android:layout_height="280px"
+                    android:layout_width="440px"
+                    android:layout_height="440px"
                     android:clickable="true"
+                    android:layout_marginLeft="80px"
+                    android:layout_marginTop="40px"
                     android:src="@mipmap/coverbase"/>
             </RelativeLayout>
-
             <TextView
                 android:id="@+id/tv_play_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="23px"
-                android:textColor="@color/white"
-                android:textSize="30px"/>
+                android:layout_marginTop="508px"
+                android:layout_centerHorizontal="true"
+                android:textColor="#87FFFFFF"
+                android:textSize="36px"
+                android:lineSpacingExtra="44dp"
+                android:lines="2"/>
 
             <TextView
                 android:id="@+id/tv_play_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10px"
-                android:textColor="@color/white"
-                android:textSize="18px"/>
-        </LinearLayout>
-
+                android:layout_marginTop="571px"
+                android:layout_centerHorizontal="true"
+                android:textColor="#9A9A9A"
+                android:lineSpacingExtra="38dp"
+                android:textSize="30px"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60px"
+        android:orientation="horizontal"
+        android:layout_marginTop="620px"
+        android:gravity="center_vertical">
+       <View
+          android:layout_width="0dp"
+          android:layout_height="0dp"
+          android:layout_weight="1"/>
+       <TextView
+          android:id="@+id/tv_playTime"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginRight="10px"
+          android:textColor="@color/white"
+          android:textSize="24px"/>
         <SeekBar
             android:id="@+id/sBar_progress"
-            android:layout_width="match_parent"
+            android:layout_width="380px"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="110px"
-            android:layout_marginLeft="30px"
-            android:layout_marginRight="30px"
+            android:layout_gravity="center_vertical"
             android:splitTrack="false"
             android:max="100"
             android:maxHeight="2px"
             android:progressDrawable="@drawable/music_play_seekbar"
             android:thumb="@mipmap/seekbar_processcircle"/>
-
+        <TextView
+            android:id="@+id/tv_playTimeAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:textColor="@color/white"
+            android:textSize="24px"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+</LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="16px"
+            android:layout_marginTop="684px"
             android:gravity="center"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_playTime"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="69px"
-                android:textColor="@color/white"
-                android:textSize="18px"/>
-
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
-
             <ImageButton
                 android:id="@+id/imgBtn_pre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="42px"
+                android:layout_marginRight="62px"
                 android:background="@android:color/transparent"
-                android:src="@mipmap/btn_music_prev"/>
-
+                android:src="@mipmap/img_btn_previous"/>
             <ImageButton
                 android:id="@+id/imgBtn_play"
                 android:layout_width="wrap_content"
@@ -116,39 +110,28 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@android:color/transparent"
                 android:src="@mipmap/btn_music_play"/>
-
             <ImageButton
                 android:id="@+id/imgBtn_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="42px"
+                android:layout_marginLeft="62px"
                 android:background="@android:color/transparent"
-                android:src="@mipmap/btn_music_next"/>
-
+                android:src="@mipmap/img_btn_next"/>
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:src="@mipmap/ic_music_volume"/>
-
-            <SeekBar
-                android:id="@+id/sBar_sound"
-                android:layout_width="200px"
-                android:layout_height="wrap_content"
-                android:paddingTop="15px"
-                android:paddingBottom="15px"
-                android:layout_marginRight="45px"
-                android:max="100"
-                android:splitTrack="false"
-                android:maxHeight="2px"
-                android:progressDrawable="@drawable/music_play_seekbar_volume"
-                android:thumb="@mipmap/seekbar_processcircle"/>
         </LinearLayout>
+        <ImageButton
+            android:id="@+id/imgBtn_Sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="278dp"
+            android:src="@mipmap/ic_music_volume"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="42px"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

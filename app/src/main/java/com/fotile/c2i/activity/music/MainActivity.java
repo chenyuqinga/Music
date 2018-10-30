@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.fotile.c2i.activity.music.base.BaseActivity;
 import com.fotile.c2i.activity.music.util.AppManagerUtil;
 
+import com.fotile.c2i.activity.music.util.Tool;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.ximalaya.ting.android.opensdk.model.PlayableModel;
 import com.ximalaya.ting.android.opensdk.model.album.SubordinatedAlbum;
@@ -48,9 +49,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
      */
     ImageView imgBtnHomeMusic;
     /**
-     * 主界面音乐列表按钮
+     * 主界面音乐上一首
      */
-    ImageView imgHomeMusicList;
+    ImageView imgBtnHomeMusicPrevious;
+    /**
+     * 主界面音乐下一首
+     */
+    ImageView imgBtnHomeMusicNext;
     /**
      * music在线音乐标题
      */
@@ -64,6 +69,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
      */
     private XmPlayerManager xmPlayerManager;
 
+    /**
+     * 喜马拉雅
+     */
+    private CommonRequest xmCommonRequest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +82,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         rLayoutM=(RelativeLayout)findViewById(R.id.rLayout_home_music);
         tvHomeMusicName=(TextView)findViewById(R.id.tv_home_music_name);
-        imgHomeMusicList=(ImageView)findViewById(R.id.img_home_music_list);
         tvHomeMusicTitle=(TextView)findViewById(R.id.tv_home_music_title);
-        imgBtnHomeMusic=(ImageView)findViewById(R.id.img_home_music);
+        imgBtnHomeMusic=(ImageView)findViewById(R.id.img_btn_home_music);
+        imgBtnHomeMusicPrevious=(ImageView)findViewById(R.id.img_btn_previous);
+        imgBtnHomeMusicNext=(ImageView)findViewById(R.id.img_btn_next);
         initView();
         initXm();
         //电源键返回键
@@ -91,8 +102,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private void initView() {
         rLayoutM.setOnClickListener(this);
         imgBtnHomeMusic.setOnClickListener(this);
-        imgHomeMusicList.setOnClickListener(this);
-
+        imgBtnHomeMusicNext.setOnClickListener(this);
+        imgBtnHomeMusicPrevious.setOnClickListener(this);
 
     }
 
@@ -100,42 +111,66 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
      * 初始化喜马拉雅
      */
     private void initXm() {
+        xmCommonRequest = CommonRequest.getInstanse();
         xmPlayerManager = XmPlayerManager.getInstance(MainActivity.this);
+        xmPlayerManager.setBreakpointResume(false);
+        updatePreButton();
         xmPlayerManager.init();
         xmPlayerManager.addPlayerStatusListener(playerStatusListener);
         xmPlayerManager.setBreakpointResume(false);
     }
 
-
+    /**
+     * 设置前一首按钮是否可点击
+     */
+    private void updatePreButton() {
+        if (xmPlayerManager.hasPreSound()) {
+            imgBtnHomeMusicPrevious.setEnabled(true);
+            imgBtnHomeMusicPrevious.setImageResource(R.mipmap.img_btn_previous);
+        } else {
+            imgBtnHomeMusicPrevious.setEnabled(false);
+            imgBtnHomeMusicPrevious.setImageResource(R.mipmap.btn_music_pre_grey);
+        }
+    }
     public void onClick(View v) {
         int id=v.getId() ;
 
             //在线音乐
            if(id==R.id.rLayout_home_music) {
                if (imgBtnHomeMusic.getVisibility() == View.VISIBLE) {
-                   startMusicPlayActivity();
-               } else {
+//                   startMusicPlayActivity();
                    launchActivity(MusicOnlineActivity.class);
+               } else {
+//                   launchActivity(MusicOnlineActivity.class);
                }
 
            }
 
             //在线音乐
-           else if(id== R.id.imgbtn_home_music) {
+           else if(id== R.id.img_btn_home_music) {
+               //音乐在播放
                if (xmPlayerManager.isPlaying()) {
                    xmPlayerManager.pause();
-                   imgBtnHomeMusic.setImageResource(R.mipmap.btn_home_music_play);
+                   imgBtnHomeMusic.setImageResource(R.mipmap.btn_home_music_pause);
+               //音乐没在播放
                } else {
                    xmPlayerManager.play();
-                   imgBtnHomeMusic.setImageResource(R.mipmap.btn_home_music_pause);
+                   imgBtnHomeMusic.setImageResource(R.mipmap.btn_music_play);
                }
            }
-            //在线音乐
-           else if(id==R.id.img_home_music_list) {
-               startMusicTrackActivity();
+           //下一首
+           else if(id==R.id.img_btn_next)
+           {
+               if (Tool.fastclick()) {
+                   xmPlayerManager.playNext();
+               }
            }
-
-
+           //上一首
+           else if(id==R.id.img_btn_previous)
+           {if (Tool.fastclick()) {
+               xmPlayerManager.playPre();
+               xmCommonRequest.setDefaultPagesize(100);
+           }}
     }
 
     /**
@@ -213,13 +248,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         //播放停止
         @Override
         public void onPlayPause() {
-            imgBtnHomeMusic.setImageResource(R.mipmap.btn_home_music_play);
+            imgBtnHomeMusic.setImageResource(R.mipmap.btn_music_play);
         }
 
         @Override
         public boolean onError(XmPlayerException e) {
             if (getCurrentActivityName(getApplicationContext()).contains("MainActivity")) {
-                imgBtnHomeMusic.setImageResource(R.mipmap.btn_home_music_play);
+                imgBtnHomeMusic.setImageResource(R.mipmap.btn_music_play);
             } else {
                 hideMusicMainIcon();
             }
@@ -253,7 +288,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         tvHomeMusicName.setVisibility(View.VISIBLE);
         //progressBarHomeMusic.setVisibility(View.VISIBLE);
         imgBtnHomeMusic.setVisibility(View.VISIBLE);
-        imgHomeMusicList.setVisibility(View.VISIBLE);
         tvHomeMusicTitle.setVisibility(View.GONE);
     }
 
@@ -263,7 +297,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
      */
     private void hideMusicMainIcon() {
         imgBtnHomeMusic.setVisibility(View.GONE);
-        imgHomeMusicList.setVisibility(View.GONE);
         tvHomeMusicName.setVisibility(View.GONE);
         //progressBarHomeMusic.setVisibility(View.GONE);
         tvHomeMusicTitle.setVisibility(View.VISIBLE);

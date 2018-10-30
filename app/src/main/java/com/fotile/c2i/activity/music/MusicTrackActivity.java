@@ -15,13 +15,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fotile.c2i.activity.music.adapter.MusicTrackRecyclerAdapter;
 import com.fotile.c2i.activity.music.customview.RotationLoadingView;
 import com.fotile.c2i.activity.music.model.view.MusicTrackView;
 import com.fotile.c2i.activity.music.presenter.MusicTrackPresenter;
+import com.fotile.c2i.activity.music.util.LogUtil;
 import com.ximalaya.ting.android.opensdk.model.track.TrackList;
 import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
 
@@ -39,7 +42,18 @@ import static com.fotile.c2i.activity.music.MusicAlbumFragment.TITLE;
 public class MusicTrackActivity extends BaseMusicActivity implements FavoriteItemClickListener.OnItemClickListener, View.OnClickListener {
 
     private static final String TAG = "MusicTrackActivity";
-
+    /**
+     * 音乐Icon
+     */
+    ImageView icon_music;
+    /**
+     * 音乐文字
+     */
+    TextView text_music;
+    /**
+     * 断网
+     */
+    ImageView imgInternetOff;
     /**
      * 更新音乐的消息类型
      */
@@ -67,11 +81,6 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
      * 提示语信息
      */
     TextView tvTip;
-
-    /**
-     * 请求错误提示信息
-     */
-    TextView tvRequestMusic;
     /**
      * 连接网络按钮
      */
@@ -97,10 +106,10 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
      */
     private MusicTrackRecyclerAdapter musicTrackRecyclerAdapter;
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_music_track;
-    }
+    /**
+     * 音乐搜索按钮
+     */
+    private ImageView imgSearch;
 
     @Override
     public boolean updateBottomViewStatus() {
@@ -114,18 +123,25 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
 //        LeftView.getInstance(this).setLeftViewVisiable(true);
         return true;
     }
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_music_track;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtil.LOGE("---Track",1);
         tvCategoryTitle=(TextView)findViewById(R.id.tv_category_title);
         lLayoutContentArea=(LinearLayout)findViewById(R.id.lLayout_music_track_content);
         lLayoutTipArea=(LinearLayout)findViewById(R.id.lLayout_music_track_tip_area) ;
-        imgLoading=(RotationLoadingView)findViewById(R.id.img_music_track_loading) ;
         tvTip=(TextView)findViewById(R.id.tv_music_track_tip);
-        tvRequestMusic=(TextView)findViewById(R.id.tv_music_track_request);
         btnConnectNetwork=(TextView)findViewById(R.id.tv_music_track_connect_network);
         recyclerViewMusicTrack= (RecyclerView)findViewById(R.id.recyclerView_track);
+        icon_music=(ImageView)findViewById(R.id.icon_music);
+        text_music=(TextView)findViewById(R.id.text_music);
+        imgInternetOff=(ImageView) findViewById(R.id.img_internet_off);
+       // imgSearch=(ImageView)findViewById(R.id.img_search) ;
         initView();
         initData();
     }
@@ -158,7 +174,6 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
         recyclerViewMusicTrack.setAdapter(musicTrackRecyclerAdapter);
         lLayoutContentArea.setVisibility(View.GONE);
         btnConnectNetwork.setOnClickListener(this);
-        tvRequestMusic.setOnClickListener(this);
         registerWifiReceiver();
     }
 
@@ -169,10 +184,11 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
         //                Intent intent = new Intent(this, SettingActivity.class);
         //                startActivity(intent);
         {
-        } else if (id == R.id.tv_music_track_request) {
-            musicTrackPresenter.getDataTrack(albumId, pageId);
-            updateTip(true);
         }
+//            //网络不通请重试
+//            musicTrackPresenter.getDataTrack(albumId, pageId);
+//            updateTip(true);
+
     }
 
     /**
@@ -212,6 +228,8 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
             musicTrackRecyclerAdapter.updateList(trackList);
             hideTip();
             lLayoutContentArea.setVisibility(View.VISIBLE);
+            icon_music.setVisibility(View.VISIBLE);
+            text_music.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -298,26 +316,20 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
         lLayoutContentArea.setVisibility(View.GONE);
         if (hasData) {
             lLayoutTipArea.setVisibility(View.VISIBLE);
-            imgLoading.setVisibility(View.VISIBLE);
             tvTip.setVisibility(View.VISIBLE);
-            imgLoading.startRotationAnimation();
             tvTip.setText(getString(R.string.str_loading));
-            btnConnectNetwork.setVisibility(View.GONE);
-            tvRequestMusic.setVisibility(View.GONE);
+            imgInternetOff.setVisibility(View.GONE);
+            icon_music.setVisibility(View.GONE);
+            text_music.setVisibility(View.GONE);
+
         } else {
             if (!isNetworkAvailable(this)) {
                 lLayoutTipArea.setVisibility(View.VISIBLE);
-                imgLoading.setVisibility(View.GONE);
-                imgLoading.stopRotationAnimation();
                 tvTip.setVisibility(View.VISIBLE);
                 tvTip.setText(getString(R.string.str_network_unavailable_tip));
                 btnConnectNetwork.setVisibility(View.VISIBLE);
-                tvRequestMusic.setVisibility(View.GONE);
             } else {
                 lLayoutTipArea.setVisibility(View.VISIBLE);
-                imgLoading.setVisibility(View.GONE);
-                imgLoading.stopRotationAnimation();
-                tvRequestMusic.setVisibility(View.VISIBLE);
                 tvTip.setVisibility(View.GONE);
                 btnConnectNetwork.setVisibility(View.GONE);
             }
@@ -329,7 +341,6 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
      */
     private void hideTip() {
         lLayoutTipArea.setVisibility(View.GONE);
-        imgLoading.stopRotationAnimation();
     }
 
     /**

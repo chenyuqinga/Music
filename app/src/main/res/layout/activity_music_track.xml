@@ -3,83 +3,93 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <ImageView
+        android:id="@+id/icon_music"
+        android:layout_width="34px"
+        android:layout_height="34px"
+        android:src="@mipmap/img_btn_music"
+        android:layout_marginLeft="40px"
+        android:layout_marginTop="23px"  />
+    <TextView
+        android:id="@+id/text_music"
+        android:layout_width="120px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23px"
+        android:layout_marginLeft="84px"
+        android:text="@string/music"
+        android:textSize="30px"/>
     <LinearLayout
         android:id="@+id/lLayout_music_track_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="40px"
+        android:layout_marginTop="96px"
         android:orientation="vertical">
-
         <com.fotile.c2i.activity.music.view.ThinBoldTextView
             android:id="@+id/tv_category_title"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="92px"
+            android:layout_height="44dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
             android:textColor="@color/music_album"
-            android:textSize="24px"/>
-
+            android:textSize="26px"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView_track"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15px"
-            android:layout_marginRight="15px"
-            android:layout_marginTop="75px"/>
-
+            android:layout_marginLeft="0px"
+            android:layout_marginRight="0px"
+            android:layout_marginTop="20px"/>
     </LinearLayout>
-
     <LinearLayout
         android:id="@+id/lLayout_music_track_tip_area"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="gone">
-
+        >
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="336px"
+            android:orientation="vertical"
             android:gravity="center">
-
-            <com.fotile.c2i.activity.music.customview.RotationLoadingView
-                android:id="@+id/img_music_track_loading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:icon_drawable="@mipmap/ic_white_loading" />
-
+            <ImageView
+             android:id="@+id/img_internet_off"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@mipmap/img_internet_off" />
             <com.fotile.c2i.activity.music.view.ThinBoldTextView
                 android:id="@+id/tv_music_track_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:layout_marginLeft="20px"
-                android:textSize="48px" />
+                android:layout_marginTop="40px"
+                android:textSize="30px" />
         </LinearLayout>
-
         <TextView
             android:id="@+id/tv_music_track_connect_network"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30px"
-            android:background="@drawable/bg_finish_dialog_btn"
-            android:padding="25px"
+            android:layout_marginTop="704px"
+            android:background="@drawable/bg_music_network"
+            android:paddingRight="40px"
+            android:paddingLeft="40px"
+            android:paddingBottom="21px"
+            android:paddingTop="21px"
             android:text="@string/str_connect_network"
-            android:textColor="@color/white"
-            android:textSize="30px" />
-
-        <TextView
-            android:id="@+id/tv_music_track_request"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30px"
-            android:background="@drawable/bg_finish_dialog_btn"
-            android:padding="25px"
-            android:text="@string/str_network_disabled"
             android:textColor="@color/white"
             android:textSize="30px" />
     </LinearLayout>
 
+    <!--<ImageView-->
+        <!--android:id="@+id/img_search"-->
+        <!--android:layout_width="44px"-->
+        <!--android:layout_height="44px"-->
+        <!--android:layout_marginLeft="280px"-->
+        <!--android:layout_marginTop="797px"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:src="@mipmap/btn_music_search"-->
+        <!--/>-->
 </RelativeLayout>
