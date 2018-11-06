@@ -1,4 +1,4 @@
-package com.fotile.c2i.activity.music;
+package com.fotile.c2i.activity;
 
 
 import android.content.BroadcastReceiver;
@@ -17,9 +17,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fotile.c2i.activity.music.FavoriteItemClickListener;
+import com.fotile.c2i.activity.music.R;
 import com.fotile.c2i.activity.music.adapter.MusicTrackRecyclerAdapter;
 import com.fotile.c2i.activity.music.customview.RotationLoadingView;
 import com.fotile.c2i.activity.music.model.view.MusicTrackView;
@@ -30,14 +31,14 @@ import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
 
 
 
-import static com.fotile.c2i.activity.music.MusicAlbumFragment.ALBUMID;
-import static com.fotile.c2i.activity.music.MusicAlbumFragment.TITLE;
+import static com.fotile.c2i.activity.MusicAlbumFragment.ALBUMID;
+import static com.fotile.c2i.activity.MusicAlbumFragment.TITLE;
 
 /**
  * 文件名称：MusicAlbum
  * 创建时间：17-8-16 下午2:14
  * 文件作者：zhangqiang
- * 功能描述：显示音乐列表界面
+ * 功能描述：显示音乐歌曲列表界面
  */
 public class MusicTrackActivity extends BaseMusicActivity implements FavoriteItemClickListener.OnItemClickListener, View.OnClickListener {
 
@@ -107,10 +108,9 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
     private MusicTrackRecyclerAdapter musicTrackRecyclerAdapter;
 
     /**
-     * 音乐搜索按钮
+     * 加载布局
      */
-    private ImageView imgSearch;
-
+    LinearLayout lLayoutLoading;
     @Override
     public boolean updateBottomViewStatus() {
 //        BottomView.getInstance(this).setBottomVisiable(true);
@@ -141,7 +141,7 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
         icon_music=(ImageView)findViewById(R.id.icon_music);
         text_music=(TextView)findViewById(R.id.text_music);
         imgInternetOff=(ImageView) findViewById(R.id.img_internet_off);
-       // imgSearch=(ImageView)findViewById(R.id.img_search) ;
+        lLayoutLoading=(LinearLayout)findViewById(R.id.lLayout_loading);
         initView();
         initData();
     }
@@ -315,10 +315,8 @@ public class MusicTrackActivity extends BaseMusicActivity implements FavoriteIte
         if (null != trackList) return;
         lLayoutContentArea.setVisibility(View.GONE);
         if (hasData) {
-            lLayoutTipArea.setVisibility(View.VISIBLE);
-            tvTip.setVisibility(View.VISIBLE);
-            tvTip.setText(getString(R.string.str_loading));
-            imgInternetOff.setVisibility(View.GONE);
+            lLayoutLoading.setVisibility(View.VISIBLE);
+            lLayoutTipArea.setVisibility(View.GONE);
             icon_music.setVisibility(View.GONE);
             text_music.setVisibility(View.GONE);
 

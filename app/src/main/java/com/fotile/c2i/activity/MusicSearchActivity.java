@@ -1,4 +1,4 @@
-package com.fotile.c2i.activity.music;
+package com.fotile.c2i.activity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,9 +18,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.fotile.c2i.activity.music.FavoriteItemClickListener;
+import com.fotile.c2i.activity.music.R;
 import com.fotile.c2i.activity.music.adapter.MusicSearchRecyclerAdapter;
-import com.fotile.c2i.activity.music.customview.AutoLinefeedLayout;
-import com.fotile.c2i.activity.music.customview.RotationLoadingView;
+import com.fotile.c2i.activity.music.customview.LineWrapLayout;
+import com.fotile.c2i.activity.music.customview.ProgressTouchView;
 import com.fotile.c2i.activity.music.model.view.MusicsSearchView;
 import com.fotile.c2i.activity.music.presenter.MusicSearchPresenter;
 import com.fotile.c2i.activity.music.util.LogUtil;
@@ -31,21 +33,18 @@ import com.ximalaya.ting.android.opensdk.player.XmPlayerManager;
 import java.util.ArrayList;
 
 
-
 /**
  * 文件名称：MusicSearchActivity
  * 创建时间：17-8-17 下午2:59
  * 文件作者：zhangqiang
  * 功能描述：Music搜索界面
  */
-public class MusicSearchActivity extends BaseMusicActivity implements View.OnClickListener, FavoriteItemClickListener
-        .OnItemClickListener {
+public class MusicSearchActivity extends BaseMusicActivity implements View.OnClickListener, FavoriteItemClickListener.OnItemClickListener {
 
     private static final String TAG = "MusicSearchActivity";
 
     /**
      * 缓存最大的搜索历史关键词数量
-     *
      */
     private static final int MAX_QUERY_KEY_STRING_COUNT = 5;
 
@@ -74,7 +73,7 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
     /**
      * 历史记录
      */
-    LineWrapLayout lineWrapLayout;
+   LineWrapLayout lineWrapLayout;
     /**
      * 清除历史记录
      */
@@ -83,6 +82,10 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
      * 显示历史记录的LinearLayout
      */
     LinearLayout lLayoutHistory;
+    /**
+     * 显示历史记录的textView
+     */
+    TextView tvHistory;
     /**
      * 搜索菜谱结果为空提示布局
      */
@@ -99,6 +102,7 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
      * view
      */
     View view;
+    View view2;
     /**
      * search column
      */
@@ -126,15 +130,16 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
         recyclerViewMusicSearch = (RecyclerView) findViewById(R.id.recyclerView_search);
         imgSearchIcon = (ImageView) findViewById(R.id.img_search_icon);
         imgCancelIcon = (ImageView) findViewById(R.id.img_cancel_icon);
-        //autoLinefeedLayout = (AutoLinefeedLayout) findViewById(R.id.history_search);
-        lineWrapLayout=(LineWrapLayout)findViewById(R.id.history_search);
+        lineWrapLayout = (LineWrapLayout) findViewById(R.id.history_search);
         lLayoutHistory = (LinearLayout) findViewById(R.id.lLayout_history);
         lLayoutSearchEmpty = (LinearLayout) findViewById(R.id.lLayout_search_empty);
-        imgSearchEmpty=(ImageView)findViewById(R.id.img_search_empty);
-        tvMusicSearchEmpty=(TextView)findViewById(R.id.tv_music_search_empty);
-        imgDeleteHistory=(ImageView) findViewById(R.id.img_btn_deleteHistory);
-        search_column=(FrameLayout)findViewById(R.id.search_column);
-        view=(View)findViewById(R.id.view) ;
+        imgSearchEmpty = (ImageView) findViewById(R.id.img_search_empty);
+        tvMusicSearchEmpty = (TextView) findViewById(R.id.tv_music_search_empty);
+        imgDeleteHistory = (ImageView) findViewById(R.id.img_btn_deleteHistory);
+        search_column = (FrameLayout) findViewById(R.id.search_column);
+        view = (View) findViewById(R.id.view);
+        view2=(View)findViewById(R.id.view2);
+        tvHistory = (TextView) findViewById(R.id.tv_history);
         initView();
         initData();
     }
@@ -162,7 +167,6 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
         edSearch.setOnEditorActionListener(listener);
         OnSearchScrollListener onSearchScrollListener = new OnSearchScrollListener();
         recyclerViewMusicSearch.addOnScrollListener(onSearchScrollListener);
-
         adapter = (MusicSearchRecyclerAdapter) recyclerViewMusicSearch.getAdapter();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewMusicSearch.setLayoutManager(layoutManager);
@@ -176,12 +180,12 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
      * 读取历史记录
      */
     private void readSearchHistory() {
-        LogUtil.LOGE("---du","读取历史记录");
+        LogUtil.LOGE("---du", "读取历史记录");
         SharedPreferences preferences = getSharedPreferences(SHARE_PREFERENCES_NAME, MODE_PRIVATE);
         String json = preferences.getString(SHARE_PREFERENCES_KEY, "[]");
         Gson gson = new Gson();
-      //  autoLinefeedLayout.removeAllViews();
-       lineWrapLayout.removeAllViews();
+        //  autoLinefeedLayout.removeAllViews();
+        lineWrapLayout.removeAllViews();
         historySearchList = (ArrayList<String>) gson.fromJson(json, ArrayList.class);
 
         for (String key : historySearchList) {
@@ -207,9 +211,22 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
                     view.setVisibility(View.GONE);
                 }
             });
-           // autoLinefeedLayout.addView(btn);
+            // autoLinefeedLayout.addView(btn);
             lineWrapLayout.addView(btn);
         }
+    }
+
+    /**
+     * 清除历史记录
+     */
+    private void clearHistory() {
+        Gson gson = new Gson();
+        historySearchList.clear();
+        String json = gson.toJson(this.historySearchList);
+        SharedPreferences preferences = getSharedPreferences(SHARE_PREFERENCES_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(SHARE_PREFERENCES_KEY, json);
+        editor.commit();
     }
 
     /**
@@ -255,7 +272,7 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
         public void onSuccess(SearchTrackList list) {
             recyclerViewMusicSearch.setVisibility(View.VISIBLE);
             lLayoutSearchEmpty.setVisibility(View.GONE);
-           // tvSearchEmptyTip.setVisibility(View.GONE);
+            LogUtil.LOGE("1112",1112);
             if (searchTrackList == null) {
                 searchTrackList = list;
             } else {
@@ -282,16 +299,22 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
                     break;
             }
             lLayoutSearchEmpty.setVisibility(View.VISIBLE);
-            tvMusicSearchEmpty.setVisibility(View.VISIBLE);
-            imgSearchEmpty.setVisibility(View.VISIBLE);
+            view2.setVisibility(View.VISIBLE);
         }
     };
 
     @Override
     public void onClick(View v) {
-        edSearch.setText("");
-        backToHistory();
-        inputMethodManager.showSoftInput(edSearch, 0);
+        int id = v.getId();
+        if (id == R.id.img_cancel_icon) {
+            edSearch.setText("");
+            backToHistory();
+            inputMethodManager.showSoftInput(edSearch, 0);
+        }
+        if (id == R.id.img_btn_deleteHistory) {
+            clearHistory();
+            readSearchHistory();
+        }
     }
 
     /**
@@ -335,13 +358,12 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
                 }
                 pageId = 1;
                 saveSearchHistory();
-              //  imgCancelIcon.setVisibility(View.GONE);
+                //  imgCancelIcon.setVisibility(View.GONE);
                 //请求数据
                 musicSearchPresenter.getMusicSearch(queryString, pageId);
 
                 hideKeyboard();
                 lLayoutSearchEmpty.setVisibility(View.GONE);
-               // tvSearchEmptyTip.setVisibility(View.GONE);
                 lLayoutHistory.setVisibility(View.GONE);
                 view.setVisibility(View.GONE);
                 recyclerViewMusicSearch.setVisibility(View.GONE);
@@ -392,9 +414,7 @@ public class MusicSearchActivity extends BaseMusicActivity implements View.OnCli
         readSearchHistory();
         lLayoutHistory.setVisibility(View.VISIBLE);
         view.setVisibility(View.VISIBLE);
-     //   imgCancelIcon.setVisibility(View.VISIBLE);
         recyclerViewMusicSearch.setVisibility(View.GONE);
-       // tvSearchEmptyTip.setVisibility(View.GONE);
         lLayoutSearchEmpty.setVisibility(View.GONE);
     }
 

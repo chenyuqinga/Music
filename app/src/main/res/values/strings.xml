@@ -2,6 +2,7 @@
     <string name="app_name">Music</string>
     <string name="music">在线音乐</string>
     <string name="str_connect_network">去设置</string>
+    <string name="str_refresh">刷新</string>
     <string name="str_network_disabled">网络连接超时</string>
     <string name="str_network_disabled_music">服务异常,请稍后重试</string>
     <string name="music_search_hint">搜索音乐</string>

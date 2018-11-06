@@ -34,6 +34,22 @@
           app:tabIndicatorColor="@android:color/transparent" />
     </RelativeLayout>
     <LinearLayout
+        android:id="@+id/lLayout_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/tv_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:textColor="@color/white"
+            android:text="@string/str_loading"
+            android:textSize="28px" />
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/current_activity_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,10 +108,11 @@
                android:layout_marginTop="110px"
                android:background="@drawable/bg_music_network"
                android:padding="25px"
-               android:text="@string/str_network_disabled"
+               android:text="@string/str_refresh"
                android:textColor="@color/white"
                android:textSize="30px"
-               android:visibility="gone" />
+               android:visibility="gone"
+               />
        </LinearLayout>
 
    </LinearLayout>

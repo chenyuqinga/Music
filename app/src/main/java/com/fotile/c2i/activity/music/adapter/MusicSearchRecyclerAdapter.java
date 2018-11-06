@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.fotile.c2i.activity.music.R;
 import com.fotile.c2i.activity.music.MusicAlbumViewHolder;
+import com.ximalaya.ting.android.opensdk.model.PlayableModel;
 import com.ximalaya.ting.android.opensdk.model.track.SearchTrackList;
+import com.ximalaya.ting.android.opensdk.model.track.Track;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -39,6 +41,7 @@ public class MusicSearchRecyclerAdapter extends RecyclerView.Adapter<MusicAlbumV
     @Override
     public void onBindViewHolder(MusicAlbumViewHolder holder, int position) {
         holder.musicName.setText(searchTrackList.getTracks().get(position).getTrackTitle());
+        holder.musicAuthor.setText(searchTrackList.getTracks().get(position).getAnnouncer().getNickname());
         Glide.with(context).load(searchTrackList.getTracks().get(position).getCoverUrlLarge())
                 .bitmapTransform(new RoundedCornersTransformation(context, 10, 0,
                         RoundedCornersTransformation.CornerType.ALL)).into(holder.musicCover);

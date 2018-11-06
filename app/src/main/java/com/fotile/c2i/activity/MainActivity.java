@@ -1,4 +1,4 @@
-package com.fotile.c2i.activity.music;
+package com.fotile.c2i.activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fotile.c2i.activity.music.MusicPlayerStateListener;
+import com.fotile.c2i.activity.music.R;
 import com.fotile.c2i.activity.music.base.BaseActivity;
 import com.fotile.c2i.activity.music.util.AppManagerUtil;
 

@@ -1,5 +1,8 @@
-package com.fotile.c2i.activity.music;
+package com.fotile.c2i.activity;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import com.fotile.c2i.activity.music.base.BaseActivity;
@@ -47,6 +50,21 @@ public class BaseMusicActivity extends BaseActivity {
 
     @Override
     public boolean updateLeftViewStatus() {
+        return false;
+    }
+    /**
+     * 判断网络是否可用
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context
+                .CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = mConnectivityManager.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isAvailable()) {
+            return true;
+        }
         return false;
     }
 }

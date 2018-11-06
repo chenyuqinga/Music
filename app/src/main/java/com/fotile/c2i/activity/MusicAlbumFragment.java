@@ -1,15 +1,12 @@
-package com.fotile.c2i.activity.music;
-
+package com.fotile.c2i.activity;
 
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.fotile.c2i.activity.music.FavoriteItemClickListener;
+import com.fotile.c2i.activity.music.R;
 import com.fotile.c2i.activity.music.adapter.MusicAlbumRecyclerAdapter;
 import com.fotile.c2i.activity.music.base.BaseFragment;
 import com.fotile.c2i.activity.music.model.view.MusicOnlineView;
@@ -29,14 +28,13 @@ import com.ximalaya.ting.android.opensdk.model.metadata.Attributes;
 import java.lang.reflect.Field;
 import java.util.List;
 
-
 /**
  * 文件名称：MusicAlbumFragment
  * 创建时间：17-9-11 上午8:57
  * 文件作者：zhangqiang
  * 功能描述：专辑的fragment
  */
-public class MusicAlbumFragment extends BaseFragment implements FavoriteItemClickListener.OnItemClickListener {
+public  class MusicAlbumFragment extends BaseFragment implements FavoriteItemClickListener.OnItemClickListener {
 
 
     /**
@@ -69,7 +67,18 @@ public class MusicAlbumFragment extends BaseFragment implements FavoriteItemClic
 
     private MusicAlbumRecyclerAdapter adapter;
 
-
+    /**
+     * 断网
+     */
+    ImageView imgInternetOff;
+    /**
+     * 连接网络按钮
+     */
+    TextView tvConnectNetwork;
+    /**
+     * 请求错误重连
+     */
+    TextView tvRequestMusic;
     /**
      * 一次请求数据二十个
      */
@@ -93,11 +102,13 @@ public class MusicAlbumFragment extends BaseFragment implements FavoriteItemClic
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         pageId = 1;
-        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.fragment_music_album,null);
+
         recyclerViewMusicAlbum = (RecyclerView)view.findViewById(R.id.recyclerView_music_album);
         tvTipError=(TextView)view.findViewById(R.id.tv_tip_music_request);
         musicCover = (ImageView) view.findViewById(R.id.img_music);
+        imgInternetOff=(ImageView)view.findViewById(R.id.img_internet_off);
+        tvRequestMusic=(TextView)view.findViewById(R.id.tv_music_request) ;
+        tvConnectNetwork=(TextView)view.findViewById(R.id.tv_music_connect_network) ;
         initView();
         setValues();
         initData();
@@ -155,6 +166,14 @@ public class MusicAlbumFragment extends BaseFragment implements FavoriteItemClic
         albumList = null;
         musicOnlinePresenter.attachView(musicOnlineView);
         musicOnlinePresenter.getMetadataAlbumList(metadataAttributes, pageId);
+        if(!isNetworkAvailable(context)){
+            tvTipError.setVisibility(View.VISIBLE);
+            tvTipError.setText(R.string.str_network_unavailable_tip);
+            imgInternetOff.setVisibility(View.VISIBLE);
+            tvRequestMusic.setVisibility(View.GONE);
+            tvConnectNetwork.setVisibility(View.VISIBLE);
+            recyclerViewMusicAlbum.setVisibility(View.GONE);
+        }
     }
 
 
@@ -246,13 +265,33 @@ public class MusicAlbumFragment extends BaseFragment implements FavoriteItemClic
 
     private void showTip() {
         tvTipError.setVisibility(View.VISIBLE);
+        tvTipError.setText(R.string.str_network_disabled);
+        imgInternetOff.setVisibility(View.VISIBLE);
+        tvRequestMusic.setVisibility(View.VISIBLE);
+        tvConnectNetwork.setVisibility(View.GONE);
         recyclerViewMusicAlbum.setVisibility(View.GONE);
     }
 
     private void hideTip() {
         tvTipError.setVisibility(View.GONE);
+        imgInternetOff.setVisibility(View.GONE);
+        tvRequestMusic.setVisibility(View.GONE);
         recyclerViewMusicAlbum.setVisibility(View.VISIBLE);
     }
-
-
+    /**
+     * 判断网络是否可用
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context
+                .CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = mConnectivityManager.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isAvailable()) {
+            return true;
+        }
+        return false;
+    }
 }
+

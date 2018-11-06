@@ -9,14 +9,41 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="15px"
         android:layout_marginRight="15px" />
-
-    <TextView
+    <ImageView
+        android:id="@+id/img_internet_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/img_internet_off" />
+    <com.fotile.c2i.activity.music.view.ThinBoldTextView
         android:id="@+id/tv_tip_music_request"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="25px"
-        android:text="@string/str_network_disabled_music"
+        android:textColor="@color/white"
+        android:layout_marginTop="40px"
+        android:textSize="30px" />
+    <TextView
+        android:id="@+id/tv_music_connect_network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110px"
+        android:background="@drawable/bg_music_network"
+        android:paddingRight="40px"
+        android:paddingLeft="40px"
+        android:paddingBottom="21px"
+        android:paddingTop="21px"
+        android:text="@string/str_connect_network"
         android:textColor="@color/white"
         android:textSize="30px" />
-
+    <TextView
+        android:id="@+id/tv_music_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110px"
+        android:background="@drawable/bg_music_network"
+        android:padding="25px"
+        android:text="@string/str_refresh"
+        android:textColor="@color/white"
+        android:textSize="30px"
+        android:visibility="gone"
+        />
 </LinearLayout>

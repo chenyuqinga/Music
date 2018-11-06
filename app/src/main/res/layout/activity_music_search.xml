@@ -3,25 +3,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:id="@+id/current_activity_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <LinearLayout
             android:id="@+id/lLayout_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40px"
             android:layout_marginTop="22px"
-            android:orientation="vertical">
+            android:orientation="vertical"
+           >
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <com.fotile.c2i.activity.music.view.ThinBoldTextView
+                    android:id="@+id/tv_history"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/music_search_history"
@@ -35,17 +35,7 @@
                     android:src="@mipmap/btn_history_delete"/>
             </LinearLayout>
 
-
-            <!--  添加Button后自动换行 -->
-            <!--<com.fotile.c2i.activity.music.customview.AutoLinefeedLayout-->
-                <!--android:id="@+id/history_search"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="45px"-->
-                <!--android:textSize="26px"-->
-                <!--android:textColor="#FFFFFF"-->
-                <!--/>-->
-            <com.fotile.c2i.activity.music.LineWrapLayout
+            <com.fotile.c2i.activity.music.customview.LineWrapLayout
                 android:id="@+id/history_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,6 +55,36 @@
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="204px" />
+        <LinearLayout
+            android:id="@+id/lLayout_search_empty"
+            android:layout_width="match_parent"
+            android:layout_height="600px"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+            <ImageView
+                android:id="@+id/img_search_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/img_empty_search"
+                android:layout_marginTop="336px"/>
+            <com.fotile.c2i.activity.music.view.ThinBoldTextView
+                android:id="@+id/tv_music_search_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40px"
+                android:text="@string/str_search_music_empty"
+                android:textColor="@color/white"
+                android:textSize="38px"
+                android:layout_gravity="center_horizontal"
+                />
+        </LinearLayout>
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="104px"
+            android:visibility="gone"/>
         <FrameLayout
             android:id="@+id/search_column"
             android:layout_width="match_parent"
@@ -107,32 +127,6 @@
                 android:src="@mipmap/img_btn_rectangle" />
         </FrameLayout>
 
-
-
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/lLayout_search_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
-        <ImageView
-            android:id="@+id/img_search_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/img_empty_search"
-            android:layout_marginTop="336px"/>
-        <com.fotile.c2i.activity.music.view.ThinBoldTextView
-            android:id="@+id/tv_music_search_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40px"
-            android:text="@string/str_search_music_empty"
-            android:textColor="@color/white"
-            android:textSize="38px"
-            android:layout_gravity="center_horizontal"
-            />
 
-</LinearLayout>
 </RelativeLayout>

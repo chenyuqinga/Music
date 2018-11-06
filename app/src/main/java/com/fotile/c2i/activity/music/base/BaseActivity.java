@@ -1,20 +1,15 @@
 package com.fotile.c2i.activity.music.base;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-import rx.functions.Action1;
+
 import rx.subscriptions.CompositeSubscription;
 
-import com.fotile.c2i.activity.music.MainActivity;
+import com.fotile.c2i.activity.MainActivity;
 import com.fotile.c2i.activity.music.R;
 import com.fotile.c2i.activity.music.util.AppManagerUtil;
 

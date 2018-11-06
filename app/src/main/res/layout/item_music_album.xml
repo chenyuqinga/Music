@@ -17,6 +17,7 @@
         android:layout_height="115px"
         android:textColor="@color/white"
         android:layout_marginTop="-110px"
+        android:layout_gravity="center_horizontal"
         android:textSize="36px"
         android:background="#50000000"
         android:gravity="center_horizontal"/>

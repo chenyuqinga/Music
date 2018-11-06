@@ -53,4 +53,5 @@
     <color name="select_txt">#C8AF70</color>
     <color name="un_select_txt">#9A9A9A</color>
     <color name="white_txt">#FFFFFF</color>
+    <color name="progressView_grey">#FF979797</color>
 </resources>

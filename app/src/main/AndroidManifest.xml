@@ -12,7 +12,7 @@
 
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.fotile.c2i.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="landscape">
             <intent-filter>
@@ -24,12 +24,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MusicOnlineActivity"></activity>
-        <activity android:name=".MusicSearchActivity"></activity>
-        <activity android:name=".MusicTrackActivity"></activity>
-        <activity android:name=".MusicPlayActivity"></activity>
-        <activity android:name=".SoundVolumeDialogActivity"></activity>
-
+        <activity android:name="com.fotile.c2i.activity.MusicOnlineActivity"></activity>
+        <activity android:name="com.fotile.c2i.activity.MusicSearchActivity"></activity>
+        <activity android:name="com.fotile.c2i.activity.MusicTrackActivity"></activity>
+        <activity android:name="com.fotile.c2i.activity.MusicPlayActivity"></activity>
 
         <service
             android:name="com.ximalaya.ting.android.opensdk.player.service.XmPlayerService"

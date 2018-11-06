@@ -1,4 +1,4 @@
-package com.fotile.c2i.activity.music;
+package com.fotile.c2i.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,14 +11,15 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.fotile.c2i.activity.music.R;
 import com.fotile.c2i.activity.music.util.LogUtil;
 import com.fotile.c2i.activity.music.view.NetworkPopupWindow;
+import com.fotile.c2i.dialog.VolumeDialog;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.ximalaya.ting.android.opensdk.model.PlayableModel;
 import com.ximalaya.ting.android.opensdk.model.album.SubordinatedAlbum;
@@ -31,7 +32,6 @@ import com.ximalaya.ting.android.opensdk.player.service.XmPlayerException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 
@@ -260,8 +260,12 @@ public class MusicPlayActivity extends BaseMusicActivity implements View.OnClick
      * 显示音量调节界面
      */
 private void showSoundDialog(){
-    Intent intent = new Intent(context, SoundVolumeDialogActivity.class);
-    startActivity(intent);
+//    Intent intent = new Intent(context, SoundVolumeDialogActivity.class);
+//    startActivity(intent);
+    VolumeDialog volumeDialog =new VolumeDialog(context);
+    volumeDialog.show();
+
+
 
 }
     @Override

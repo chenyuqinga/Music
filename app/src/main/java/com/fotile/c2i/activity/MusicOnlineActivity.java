@@ -1,30 +1,36 @@
-package com.fotile.c2i.activity.music;
+package com.fotile.c2i.activity;
 
 import android.app.Fragment;
-import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fotile.c2i.activity.music.FavoriteItemClickListener;
+import com.fotile.c2i.activity.music.R;
+import com.fotile.c2i.activity.music.adapter.MusicAlbumRecyclerAdapter;
 import com.fotile.c2i.activity.music.adapter.MusicAlbumViewpagerAdapter;
+import com.fotile.c2i.activity.music.base.BaseFragment;
 import com.fotile.c2i.activity.music.model.view.MusicOnlineView;
 import com.fotile.c2i.activity.music.presenter.MusicOnlinePresenter;
 import com.fotile.c2i.activity.music.util.LogUtil;
@@ -45,6 +51,10 @@ import java.util.List;
 
 public class MusicOnlineActivity extends BaseMusicActivity implements View.OnClickListener {
     private static final String TAG = "MusicOnlineActivity";
+    /**
+     * 加载布局
+     */
+    LinearLayout lLayoutLoading;
     /**
      * 音乐Icon
      */
@@ -152,6 +162,7 @@ public class MusicOnlineActivity extends BaseMusicActivity implements View.OnCli
         currentActivityContent = (LinearLayout) findViewById(R.id.current_activity_content);
         imgSearch = (ImageView) findViewById(R.id.img_search);
         lLayoutTipArea = (LinearLayout) findViewById(R.id.lLayout_music_tip_area);
+        lLayoutLoading=(LinearLayout)findViewById(R.id.lLayout_loading);
         tvTip = (TextView) findViewById(R.id.tv_music_tip);
         imgInternetOff = (ImageView) findViewById(R.id.img_internet_off);
         TvConnectNetwork = (TextView) findViewById(R.id.tv_music_connect_network);
@@ -404,14 +415,17 @@ public class MusicOnlineActivity extends BaseMusicActivity implements View.OnCli
                         //字多宽线就多宽，测量mTextView的宽度
                         int width = 0;
                         width = mTextView.getWidth();
+                        LogUtil.LOGE("---width",width);
                         if (width == 0) {
                             mTextView.measure(0, 0);
                             width = mTextView.getMeasuredWidth();
+                            LogUtil.LOGE("---widthget",width);
                         }
 
                         //设置tab左右间距为10dp  注意这里不能使用Padding 因为源码中线的宽度是根据 tabView的宽度来设置的
                         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
-                        params.width = width;
+                        //乘以3解决点击变两行的问题
+                        params.width = width*3;
                         params.leftMargin = dp10;
                         params.rightMargin = dp10;
                         tabView.setLayoutParams(params);
@@ -473,8 +487,8 @@ public class MusicOnlineActivity extends BaseMusicActivity implements View.OnCli
                         updateTip(true);
                     } else {
                         headTitle.setVisibility(View.VISIBLE);
-                        //                        icon_music.setVisibility(View.VISIBLE);
                         imgSearch.setVisibility(View.VISIBLE);
+                        lLayoutLoading.setVisibility(View.GONE);
                         LogUtil.LOGE("---哪吒1", 111);
                     }
                     break;
@@ -492,13 +506,9 @@ public class MusicOnlineActivity extends BaseMusicActivity implements View.OnCli
         if (attributesList.size() != 0)
             return;
         if (hasData) {
-            lLayoutTipArea.setVisibility(View.VISIBLE);
-            tvTip.setVisibility(View.VISIBLE);
-            tvTip.setText(getString(R.string.str_loading));
-            TvConnectNetwork.setVisibility(View.GONE);
-            imgInternetOff.setVisibility(View.GONE);
+            lLayoutLoading.setVisibility(View.VISIBLE);
+            lLayoutTipArea.setVisibility(View.GONE);
             headTitle.setVisibility(View.GONE);
-            //            icon_music.setVisibility(View.GONE);
             imgSearch.setVisibility(View.GONE);
         } else {
             //网络未连接
@@ -529,21 +539,21 @@ public class MusicOnlineActivity extends BaseMusicActivity implements View.OnCli
     private void hideTip() {
         lLayoutTipArea.setVisibility(View.GONE);
     }
-
-    /**
-     * 判断网络是否可用
-     *
-     * @param context
-     * @return
-     */
-    public static boolean isNetworkAvailable(Context context) {
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context
-                .CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = mConnectivityManager.getActiveNetworkInfo();
-        if (netInfo != null && netInfo.isAvailable()) {
-            return true;
-        }
-        return false;
-    }
-
 }
+//
+//    /**
+//     * 判断网络是否可用
+//     *
+//     * @param context
+//     * @return
+//     */
+//    public static boolean isNetworkAvailable(Context context) {
+//        ConnectivityManager mConnectivityManager = (ConnectivityManager) context.getSystemService(Context
+//                .CONNECTIVITY_SERVICE);
+//        NetworkInfo netInfo = mConnectivityManager.getActiveNetworkInfo();
+//        if (netInfo != null && netInfo.isAvailable()) {
+//            return true;
+//        }
+//        return false;
+//    }
+
