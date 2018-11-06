@@ -175,46 +175,34 @@ public  class LineWrapLayout extends ViewGroup {
         int attrCount = attrArray.getIndexCount();
         for (int i = 0; i < attrCount; i++) {
             int attrId = attrArray.getIndex(i);
-            switch (attrId) {
-                case R.styleable.AutoLineFeedLayout_horizontalSpacing: {
+            if (attrId==R.styleable.AutoLineFeedLayout_horizontalSpacing) {
                     float dimen = attrArray.getDimension(attrId, 0);
                     horizontalSpace = (int) dimen;
                 }
-                break;
-                case R.styleable.AutoLineFeedLayout_verticalSpacing: {
+           else if(attrId==R.styleable.AutoLineFeedLayout_verticalSpacing) {
                     float dimen = attrArray.getDimension(attrId, 0);
                     verticalSpace = (int) dimen;
                 }
-                break;
-                case R.styleable.AutoLineFeedLayout_paddingBottom: {
+            else if (attrId== R.styleable.AutoLineFeedLayout_paddingBottom){
                     float dimen = attrArray.getDimension(attrId, 0);
                     paddingBottom = (int) dimen;
                 }
-                break;
-                case R.styleable.AutoLineFeedLayout_paddingLeft: {
+            else if(attrId==R.styleable.AutoLineFeedLayout_paddingLeft) {
                     float dimen = attrArray.getDimension(attrId, 0);
                     paddingLeft = (int) dimen;
                 }
-                break;
-                case R.styleable.AutoLineFeedLayout_paddingRight: {
+            else if (attrId==R.styleable.AutoLineFeedLayout_paddingRight){
                     float dimen = attrArray.getDimension(attrId, 0);
                     paddingRight = (int) dimen;
                 }
-                break;
-                case R.styleable.AutoLineFeedLayout_paddingTop: {
+
+            else if(attrId==R.styleable.AutoLineFeedLayout_paddingTop){
                     float dimen = attrArray.getDimension(attrId, 0);
                     paddingTop = (int) dimen;
                 }
-                break;
-                case R.styleable.AutoLineFeedLayout_debug: {
+            else if(attrId== R.styleable.AutoLineFeedLayout_debug){
 
                 }
-                break;
-
-                default:
-                    break;
-            }
-
         }
 
         listX = new ArrayList<Integer>();
