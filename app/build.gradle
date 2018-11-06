@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.android.application'
 // add these
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.chenyuqinga'
@@ -9,7 +8,7 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
 //        applicationId "com.fotile.c2i.activity.music"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 139
         versionName "C2CH-SA139"
